@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "239335537908",
+    "firebase_url": "https://child-c26e7-default-rtdb.firebaseio.com",
+    "project_id": "child-c26e7",
+    "storage_bucket": "child-c26e7.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:239335537908:android:5de683a49633259119b2a1",
+        "android_client_info": {
+          "package_name": "com.example.finalproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCoq_HXsLPSeaaFpjXnakjawOhwHdfwgk4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:239335537908:android:63f83d479e55fc5a19b2a1",
+        "android_client_info": {
+          "package_name": "com.example.nofarproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCoq_HXsLPSeaaFpjXnakjawOhwHdfwgk4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:239335537908:android:4fa4d177e9aaea0819b2a1",
+        "android_client_info": {
+          "package_name": "com.nofar.nofarproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCoq_HXsLPSeaaFpjXnakjawOhwHdfwgk4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
