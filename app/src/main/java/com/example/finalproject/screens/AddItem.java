@@ -38,10 +38,6 @@ public class AddItem extends AppCompatActivity implements View.OnClickListener {
     private ActivityResultLauncher<Intent> selectImageLauncher;
     private ActivityResultLauncher<Intent> captureImageLauncher;
     ImageView IVPreviewImage;
-    int SELECT_PICTURE = 200;
-    private String desc, city, location, conper, date, imageBase64;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -173,11 +169,8 @@ public class AddItem extends AppCompatActivity implements View.OnClickListener {
 
 
     private void selectImageFromGallery() {
-
-        //   Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        //  selectImageLauncher.launch(intent);
-
-        imageChooser();
+       Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+      selectImageLauncher.launch(intent);
     }
 
     private void captureImageFromCamera() {
@@ -187,70 +180,44 @@ public class AddItem extends AppCompatActivity implements View.OnClickListener {
 
     /// validate the input
     private boolean isValid(String desc, String date, String city, String location, String conper) {
-        if (this.desc.isEmpty()) {
+        if (desc.isEmpty()) {
             Log.e(TAG, "Desc is empty");
             tvItemDesc.setError("Desc is required");
             tvItemDesc.requestFocus();
             return false;
         }
 
-        if (this.city.isEmpty()) {
+        if (city.isEmpty()) {
             Log.e(TAG, "City is empty");
             tvItemCity.setError("City is required");
             tvItemCity.requestFocus();
             return false;
         }
-        if (this.location.isEmpty()) {
+        if (location.isEmpty()) {
             Log.e(TAG, "Location is empty");
             tvItemLoc.setError("Location is required");
             tvItemLoc.requestFocus();
             return false;
         }
-        if (this.conper.isEmpty()) {
+        if (conper.isEmpty()) {
             Log.e(TAG, "Conper is empty");
             tvItemConPer.setError("Conper is required");
             tvItemConPer.requestFocus();
             return false;
         }
-        if (this.date.isEmpty()) {
+        if (date.isEmpty()) {
             Log.e(TAG, "Date is empty");
             tvItemDate.setError("Date is required");
             tvItemDate.requestFocus();
             return false;
         }
 
-        if (imageBase64 == null) {
-            Log.e(TAG, "Image is required");
-            Toast.makeText(this, "Image is required", Toast.LENGTH_SHORT).show();
-            return false;
-        }
+//        if (imageBase64 == null) {
+//            Log.e(TAG, "Image is required");
+//            Toast.makeText(this, "Image is required", Toast.LENGTH_SHORT).show();
+//            return false;
+//        }
         return true;
     }
 
-    void imageChooser() {
-        Intent i = new Intent();
-        i.setType("image/*");
-        i.setAction(Intent.ACTION_GET_CONTENT);
-
-        startActivityForResult(Intent.createChooser(i, "Select Picture"), SELECT_PICTURE);
-    }
-
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (resultCode == RESULT_OK) {
-
-            // compare the resultCode with the
-            // SELECT_PICTURE constant
-            if (requestCode == SELECT_PICTURE) {
-                // Get the url of the image from data
-                Uri selectedImageUri = data.getData();
-                if (null != selectedImageUri) {
-                    // update the preview image in the layout
-                    IVPreviewImage.setImageURI(selectedImageUri);
-                }
-            }
-        }
-
-    }
 }

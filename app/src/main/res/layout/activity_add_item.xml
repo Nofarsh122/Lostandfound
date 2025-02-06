@@ -33,13 +33,13 @@
             android:id="@+id/tvItemDesc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="תאור פריט"
-            android:textSize="16sp"
-            android:layout_marginBottom="16dp"
-            android:padding="12dp"
-            android:background="#FFFFFF"
             android:layout_marginTop="5dp"
-            android:layout_weight="1" />
+            android:layout_marginBottom="16dp"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:hint="תאור פריט"
+            android:padding="12dp"
+            android:textSize="16sp" />
 
         <EditText
             android:id="@+id/tvItemDate"
@@ -91,6 +91,7 @@
             android:layout_weight="1" />
 
 
+
         <Button
             android:id="@+id/btnGallery"
             android:layout_width="210dp"
@@ -122,7 +123,7 @@
             android:layout_width="85dp"
             android:layout_height="78dp"
             android:layout_weight="1"
-            tools:srcCompat="@tools:sample/avatars" />
+            tools:srcCompt="@tools:sample/avatars" />
 
         <Button
             android:id="@+id/btnFindItem"
@@ -139,3 +140,4 @@
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
+

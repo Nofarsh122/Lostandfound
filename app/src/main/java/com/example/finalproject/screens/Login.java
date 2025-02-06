@@ -62,7 +62,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         btnBack = (Button) findViewById(R.id.btnBack);
         btnBack.setOnClickListener(this);
 
-
     }
 
     @Override
@@ -97,7 +96,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                                 final String userUid = user.getUid();
 
 
-                                Intent go = new Intent(getApplicationContext(), MainActivity.class);
+                                Intent go = new Intent(getApplicationContext(), UserPage.class);
                                 startActivity(go);
                             } else {
 

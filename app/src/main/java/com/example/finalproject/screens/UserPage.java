@@ -43,18 +43,6 @@ public class UserPage extends AppCompatActivity implements View.OnClickListener 
         btnPer.setOnClickListener(this);
     }
 
-    public void goAddItem(View view) {
-        Intent go=new Intent(this,AddItem.class);
-        startActivity(go);
-    }
-    public void goShowItems(View view) {
-        Intent go=new Intent(this,ShowItems.class);
-        startActivity(go);
-
-    }
-
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -91,6 +79,22 @@ public class UserPage extends AppCompatActivity implements View.OnClickListener 
 
     @Override
     public void onClick(View view) {
+        if (btnPublic==view) {
+            Intent goReg = new Intent(getApplicationContext(), AddItem.class);
+            startActivity(goReg);
+        }
+
+        if (btnSearch==view) {
+            Intent goReg = new Intent(getApplicationContext(), ShowItems.class);
+            startActivity(goReg);
+        }
+
+        if (btnPer==view) {
+            Intent goReg = new Intent(getApplicationContext(), ShowItems.class);
+            startActivity(goReg);
+        }
+
+
 
     }
 }

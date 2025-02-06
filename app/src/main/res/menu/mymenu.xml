@@ -2,6 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:title="מסך הבית"
         android:id="@+id/menuMain" />
+    <item android:title="Item"
+        android:id="@+id/menuItem"/>
     <item android:title="הוספת פריט אבוד"
         android:id="@+id/menuAddItem"/>
     <item android:title="דף המציאות"
@@ -10,8 +12,6 @@
         android:id="@+id/menuUserpage"/>
     <item android:title="אודות"
         android:id="@+id/menuAboutUs"/>
-    <item android:title="Item"
-        android:id="@+id/menuItem"/>
     <item android:title="התנתק"
         android:id="@+id/menuIte"/>
 
