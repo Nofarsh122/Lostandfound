@@ -12,6 +12,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.finalproject.R;
+import com.example.finalproject.services.AuthenticationService;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     Button btnRegHome, btnLogHome;
@@ -26,6 +27,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        if (AuthenticationService.getInstance().isUserSignedIn()) {
+            Intent intent = new Intent(this, UserPage.class);
+            startActivity(intent);
+            finish();
+            return;
+        }
+
         init_views();
     }
 

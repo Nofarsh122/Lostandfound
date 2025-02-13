@@ -195,7 +195,7 @@ public class DatabaseService {
     /// @see List
     /// @see Food
     /// @see #getData(String, Class, DatabaseCallback)
-    public void getItem(@NotNull final DatabaseCallback<List<Item>> callback) {
+    public void getItems(@NotNull final DatabaseCallback<List<Item>> callback) {
         readData("items").get().addOnCompleteListener(task -> {
             if (!task.isSuccessful()) {
                 Log.e(TAG, "Error getting data", task.getException());

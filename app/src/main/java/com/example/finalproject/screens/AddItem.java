@@ -37,7 +37,6 @@ public class AddItem extends AppCompatActivity implements View.OnClickListener {
 
     private ActivityResultLauncher<Intent> selectImageLauncher;
     private ActivityResultLauncher<Intent> captureImageLauncher;
-    ImageView IVPreviewImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,7 +140,7 @@ public class AddItem extends AppCompatActivity implements View.OnClickListener {
         String userId;
         userId= AuthenticationService.getInstance().getCurrentUserId();
         id=databaseService.generateItemId();
-        Item item = new Item(id, desc, date, city, location, conper, status, userId); // TODO
+        Item item = new Item(id, desc, date, city, location, conper, status, userId, ImageUtil.convertTo64Base(ItemImageView));
 
         databaseService.createNewItem(item, new DatabaseService.DatabaseCallback<Void>() {
             @Override

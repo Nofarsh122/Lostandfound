@@ -13,10 +13,7 @@
         android:theme="@style/Theme.Lostandfound"
         tools:targetApi="31">
         <activity
-            android:name=".screens.PersonalArea"
-            android:exported="false" />
-        <activity
-            android:name=".screens.AfterLogin"
+            android:name=".screens.AdminPage"
             android:exported="false" />
         <activity
             android:name=".utils.ImageUtil"
