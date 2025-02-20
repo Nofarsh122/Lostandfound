@@ -1,5 +1,6 @@
 package com.example.finalproject.screens;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,11 +13,16 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.finalproject.R;
+import com.example.finalproject.model.Item;
+import com.example.finalproject.services.DatabaseService;
 
 public class ItemProfile extends AppCompatActivity implements View.OnClickListener {
 
     EditText  etCity, etLocation, etDate, etDesc, etStatus, etConPer;
     Button btnBack, btnContact;
+
+    DatabaseService databaseService;
+    String itemId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +34,20 @@ public class ItemProfile extends AppCompatActivity implements View.OnClickListen
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        databaseService = DatabaseService.getInstance();
         init_views();
+        itemId = getIntent().getStringExtra("ITEM_ID");
+        databaseService.getItem(itemId, new DatabaseService.DatabaseCallback<Item>() {
+            @Override
+            public void onCompleted(Item item) {
+                setView(item);
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+
+            }
+        });
     }
 
     private void init_views() {
@@ -42,11 +61,30 @@ public class ItemProfile extends AppCompatActivity implements View.OnClickListen
         btnBack.setOnClickListener(this);
         btnContact = findViewById(R.id.btnContact);
         btnContact.setOnClickListener(this);
+    }
+
+    void setView(Item item) {
+        etCity.setText(item.getCity());
+        etLocation.setText(item.getLocation());
+        etDate.setText(item.getDate());
+        etDesc.setText(item.getDesc());
+        etConPer.setText(item.getConper());
+        etStatus.setText(item.getStatus());
 
     }
 
     @Override
     public void onClick(View view) {
+        if (btnBack==view) {
+            Intent goReg = new Intent(getApplicationContext(), ShowItems.class);
+            startActivity(goReg);
+        }
+
+        if (btnContact==view) {
+            Intent goReg = new Intent(getApplicationContext(), ShowItems.class);
+            startActivity(goReg);
+        }
+
 
     }
 }

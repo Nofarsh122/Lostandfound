@@ -1,5 +1,7 @@
 package com.example.finalproject.adapter;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.finalproject.R;
 import com.example.finalproject.model.Item;
+import com.example.finalproject.screens.ItemProfile;
 import com.example.finalproject.utils.ImageUtil;
 import com.google.firebase.database.annotations.Nullable;
 
@@ -25,8 +28,11 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
         private final List<ItemCount> ItemCountList;
 
-        public ItemAdapter() {
+        Context context;
+
+        public ItemAdapter(Context context) {
             ItemCountList = new ArrayList<>();
+            this.context = context;
         }
 
         public void setItems(@NonNull List<Item> items) {
@@ -97,6 +103,15 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
             holder.itemDescTextView.setText("תיאור הפריט:" + item.getDesc());
             holder.itemDateTextView.setText("תאריך בו נמצאה האבדה :" + item.getDate());
             holder.itemImageView.setImageBitmap(ImageUtil.convertFrom64base(item.getImageBase64()));
+
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, ItemProfile.class);
+                    intent.putExtra("ITEM_ID", item.getId());
+                    context.startActivity(intent);
+                }
+            });
 
         }
 

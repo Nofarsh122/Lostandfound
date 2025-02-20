@@ -59,7 +59,7 @@ public class ShowItems extends AppCompatActivity{
 
      rvItems = findViewById(R.id.rvItems);
      rvItems.setLayoutManager(new LinearLayoutManager(this));
-     itemAdapter = new ItemAdapter();
+     itemAdapter = new ItemAdapter(this);
      rvItems.setAdapter(itemAdapter);
 
      databaseService.getItems(new DatabaseService.DatabaseCallback<List<Item>>() {
