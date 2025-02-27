@@ -42,6 +42,7 @@ import java.util.List;
 public class ShowItems extends AppCompatActivity{
 
    RecyclerView rvItems;
+   Spinner spinner;
    ItemAdapter itemAdapter;
    DatabaseService databaseService;
 
@@ -61,6 +62,41 @@ public class ShowItems extends AppCompatActivity{
      rvItems.setLayoutManager(new LinearLayoutManager(this));
      itemAdapter = new ItemAdapter(this);
      rvItems.setAdapter(itemAdapter);
+     spinner = findViewById(R.id.spSubCategory5);
+     List<String> list = new ArrayList<>();
+     list.add("חיפוש על פי:");
+     list.add("סדר מהחדש ביותר לישן ביותר");
+     list.add(" סדר מהישן ביותר לחדש ביותר");
+     list.add("לפי הסטטוס");
+     ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
+     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+     spinner.setAdapter(adapter);
+
+     spinner = findViewById(R.id.spCategory5);
+     List<String> list1 = new ArrayList<>();
+     list1.add("מיין:");
+     list1.add("תאריך");
+     list1.add(" מיקום");
+     list1.add("סטטוס");
+     ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list1);
+     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+     spinner.setAdapter(adapter1);
+
+       spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+           @Override
+           public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+               // This is where you handle the selection
+               String selectedItem = parentView.getItemAtPosition(position).toString();
+               // Do something with the selected item
+               Toast.makeText(getApplicationContext(), "Selected item: " + selectedItem, Toast.LENGTH_SHORT).show();
+           }
+
+           @Override
+           public void onNothingSelected(AdapterView<?> parentView) {
+               // Handle case when nothing is selected, if necessary
+           }
+       });
+
 
      databaseService.getItems(new DatabaseService.DatabaseCallback<List<Item>>() {
        @Override

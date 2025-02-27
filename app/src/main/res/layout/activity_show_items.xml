@@ -52,8 +52,9 @@
 
             <Spinner
                 android:id="@+id/spCategory5"
-                android:layout_width="130dp"
-                android:layout_height="50dp" />
+                android:layout_width="188dp"
+                android:layout_height="50dp"
+                android:layout_weight="1" />
 
             <EditText
                 android:id="@+id/etSearchItem"

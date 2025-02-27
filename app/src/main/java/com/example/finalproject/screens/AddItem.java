@@ -34,7 +34,6 @@ public class AddItem extends AppCompatActivity implements View.OnClickListener {
     Button btnFindItem, btnGallery, btnCamera;
     ImageView ItemImageView;
     private DatabaseService databaseService;
-
     private ActivityResultLauncher<Intent> selectImageLauncher;
     private ActivityResultLauncher<Intent> captureImageLauncher;
 
