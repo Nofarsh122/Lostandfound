@@ -31,15 +31,15 @@
 
         <Button
             android:id="@+id/btnPublic"
-            android:layout_width="200dp"
+            android:layout_width="231dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginTop="150dp"
             android:backgroundTint="#536DFE"
             android:gravity="center"
-            android:layout_gravity="center"
+            android:text="פרסום פריט שמצאתי"
             android:textAlignment="center"
-            android:text="פרסום אבידה"
-            android:textSize="18sp"/>
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/btnSearch"

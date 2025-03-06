@@ -41,6 +41,16 @@
             android:backgroundTint="#264660"
             android:text="התחברות"
             android:textAlignment="center" />
+
+        <Button
+            android:id="@+id/btnAboutUs"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:backgroundTint="#264660"
+            android:text="אודות"
+            android:textAlignment="center" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

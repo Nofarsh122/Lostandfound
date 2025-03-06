@@ -25,7 +25,7 @@
             android:layout_marginBottom="20dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="פרטי הפריט האבוד"
+            android:text="פרטי המציאה"
             android:textColor="#333"
             android:textSize="24sp"
             android:textStyle="bold" />
@@ -42,6 +42,19 @@
             android:hint=" תיאור פריט"
             android:padding="10dp"
             android:textSize="18dp" />
+
+        <EditText
+            android:id="@+id/etType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="16dp"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:hint=" סוג פריט"
+            android:padding="10dp"
+            android:textSize="18dp" />
+
 
         <EditText
             android:id="@+id/etDate"
@@ -91,8 +104,8 @@
             android:padding="10dp"
             android:textSize="18dp" />
 
-        <EditText
-            android:id="@+id/etStatus"
+        <TextView
+            android:id="@+id/tvStatus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
