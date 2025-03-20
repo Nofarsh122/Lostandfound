@@ -2,60 +2,38 @@ package com.example.finalproject.model;
 
 import java.io.Serializable;
 
-public class User  implements Serializable {
-    protected String id;
-    protected  String fname;
-    protected String lname;
+/// Model class for the user
+/// This class represents a user in the application
+/// It contains the user's information
+/// @see Serializable
+public class User implements Serializable {
 
-    protected String phone;
-    protected String email;
-    protected String password;
-
-
-    public User(String id, String fname, String lname, String phone, String email, String password) {
-        this.id = id;
-        this.fname = fname;
-        this.lname = lname;
-        this.phone = phone;
-        this.email = email;
-        this.password = password;
-    }
+    /// unique id of the user
+    private String id;
+    private String email, password;
+    private String fname, lname;
+    private String phone;
+    private boolean isAdmin;
 
     public User() {
     }
 
-    public User(User theUser) {
-        this.id = theUser.getId();
-        this.fname = theUser.getFname() ;
-        this.lname = theUser.getLname() ;
-        this.email = theUser.getEmail() ;
-
-        this.phone = theUser.getPhone() ;
-
+    public User(String uid, String email, String password, String fname, String lname, String phone, boolean isAdmin) {
+        this.id = uid;
+        this.email = email;
+        this.password = password;
+        this.fname = fname;
+        this.lname = lname;
+        this.phone = phone;
+        this.isAdmin = isAdmin;
     }
 
-    public String getId() {
+    public String getUid() {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getFname() {
-        return fname;
-    }
-
-    public void setFname(String fname) {
-        this.fname = fname;
-    }
-
-    public String getLname() {
-        return lname;
-    }
-
-    public void setLname(String lname) {
-        this.lname = lname;
+    public void setUid(String uid) {
+        this.id = uid;
     }
 
     public String getEmail() {
@@ -74,6 +52,22 @@ public class User  implements Serializable {
         this.password = password;
     }
 
+    public String getFname() {
+        return fname;
+    }
+
+    public void setFname(String fname) {
+        this.fname = fname;
+    }
+
+    public String getLname() {
+        return lname;
+    }
+
+    public void setLname(String lname) {
+        this.lname = lname;
+    }
+
     public String getPhone() {
         return phone;
     }
@@ -82,15 +76,38 @@ public class User  implements Serializable {
         this.phone = phone;
     }
 
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
+    }
+
     @Override
     public String toString() {
         return "User{" +
-                "id='" + id + '\'' +
-                ", fname='" + fname + '\'' +
-                ", lname='" + lname + '\'' +
+                "uid='" + id + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
+                ", firstName='" + fname + '\'' +
+                ", LastName='" + lname + '\'' +
                 ", phone='" + phone + '\'' +
+                ", isAdmin=" + isAdmin +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+
+        User user = (User) object;
+        return id.equals(user.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
     }
 }
