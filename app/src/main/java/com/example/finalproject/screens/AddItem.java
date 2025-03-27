@@ -30,7 +30,7 @@ import com.example.finalproject.services.DatabaseService;
 import com.example.finalproject.utils.ImageUtil;
 
 public class AddItem extends AppCompatActivity implements View.OnClickListener {
-    EditText tvItemDesc, tvItemCity, tvItemLoc, tvItemConPer, tvItemDate;
+    EditText tvItemDesc, tvItemCity, tvItemLoc, tvItemConPer, tvItemDate, tvItemType;
     Button btnFindItem, btnGallery, btnCamera;
     ImageView ItemImageView;
     private DatabaseService databaseService;
@@ -81,6 +81,7 @@ public class AddItem extends AppCompatActivity implements View.OnClickListener {
         tvItemLoc = findViewById(R.id.tvItemLoc);
         tvItemConPer = findViewById(R.id.tvItemConPer);
         tvItemDate = findViewById(R.id.tvItemDate);
+        tvItemType = findViewById(R.id.tvItemType);
         ItemImageView = findViewById(R.id.ItemImageView);
         btnFindItem = findViewById(R.id.btnFindItem);
         btnFindItem.setOnClickListener(this);
@@ -119,9 +120,10 @@ public class AddItem extends AppCompatActivity implements View.OnClickListener {
         String location = tvItemLoc.getText().toString();
         String conper = tvItemConPer.getText().toString();
         String date = tvItemDate.getText().toString();
+        String type = tvItemType.getText().toString();
         String imageBase64 = ImageUtil.convertTo64Base(ItemImageView);
 
-        if (!isValid ( desc, date, city, location, conper))
+        if (!isValid ( desc, date, city, location, conper, type))
             return;
 
         Log.d(TAG, "Adding item to database");
@@ -130,6 +132,7 @@ public class AddItem extends AppCompatActivity implements View.OnClickListener {
         Log.d(TAG, "Location: " + location);
         Log.d(TAG, "Contactperson: " + conper);
         Log.d(TAG, "Date: " + date);
+        Log.d(TAG, "Type: " + type);
         Log.d(TAG, "ImageBase64: " + imageBase64);
 
 
@@ -139,7 +142,7 @@ public class AddItem extends AppCompatActivity implements View.OnClickListener {
         String userId;
         userId= AuthenticationService.getInstance().getCurrentUserId();
         id=databaseService.generateItemId();
-        Item item = new Item(id, desc, date, city, location, conper, status, userId, ImageUtil.convertTo64Base(ItemImageView));
+        Item item = new Item(id, desc, date, city, location, conper, status, type, userId, ImageUtil.convertTo64Base(ItemImageView));
 
         databaseService.createNewItem(item, new DatabaseService.DatabaseCallback<Void>() {
             @Override
@@ -153,6 +156,7 @@ public class AddItem extends AppCompatActivity implements View.OnClickListener {
                 tvItemLoc.setText("");
                 tvItemConPer.setText("");
                 tvItemDate.setText("");
+                tvItemType.setText("");
                 ItemImageView.setImageBitmap(null);
             }
 
@@ -177,7 +181,7 @@ public class AddItem extends AppCompatActivity implements View.OnClickListener {
     }
 
     /// validate the input
-    private boolean isValid(String desc, String date, String city, String location, String conper) {
+    private boolean isValid(String desc, String date, String city, String location, String conper, String type) {
         if (desc.isEmpty()) {
             Log.e(TAG, "Desc is empty");
             tvItemDesc.setError("Desc is required");
@@ -207,6 +211,13 @@ public class AddItem extends AppCompatActivity implements View.OnClickListener {
             Log.e(TAG, "Date is empty");
             tvItemDate.setError("Date is required");
             tvItemDate.requestFocus();
+            return false;
+        }
+
+        if (type.isEmpty()) {
+            Log.e(TAG, "Type is empty");
+            tvItemType.setError("Type is required");
+            tvItemType.requestFocus();
             return false;
         }
 

@@ -15,7 +15,7 @@ import com.example.finalproject.R;
 import com.example.finalproject.services.AuthenticationService;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    Button btnRegHome, btnLogHome;
+    Button btnRegHome, btnLogHome, btnAboutUs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +43,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnLogHome.setOnClickListener(this);
         btnRegHome=findViewById(R.id.btnRegHome);
         btnRegHome.setOnClickListener(this);
+        btnAboutUs=findViewById(R.id.btnAboutUs);
+        btnAboutUs.setOnClickListener(this);
     }
 
     @Override
@@ -54,10 +56,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (btnLogHome==v){
             Intent goLog=new Intent(getApplicationContext(), Login.class);
             startActivity(goLog);
-
         }
-
+        if (btnAboutUs==v){
+            Intent goAboutUs = new Intent(getApplicationContext(), AboutUs.class);
+            startActivity(goAboutUs);
+        }
     }
+
 
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {

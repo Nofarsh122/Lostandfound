@@ -77,7 +77,7 @@ public class ShowItems extends AppCompatActivity{
      list1.add("מיין:");
      list1.add("תאריך");
      list1.add(" מיקום");
-     list1.add("סטטוס");
+     list1.add("סוג המוצר");
      ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list1);
      adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
      spinner.setAdapter(adapter1);

@@ -1,12 +1,12 @@
 package com.example.finalproject.model;
 
 public class Item {
-    protected String id, desc, date, city, location, conper, status, userId, imageBase64;
+    protected String id, desc, date, city, location, conper, status, Type, userId, imageBase64;
 
     public Item() {
     }
 
-    public Item(String id, String desc, String date, String city, String location, String conper, String status, String userId, String imageBase64) {
+    public Item(String id, String desc, String date, String city, String location, String conper, String status, String type, String userId, String imageBase64) {
         this.id = id;
         this.desc = desc;
         this.date = date;
@@ -14,6 +14,7 @@ public class Item {
         this.location = location;
         this.conper = conper;
         this.status = status;
+        this.Type = type;
         this.userId = userId;
         this.imageBase64 = imageBase64;
     }
@@ -26,8 +27,33 @@ public class Item {
         this.location = other.location;
         this.conper = other.conper;
         this.status = other.status;
+        this.Type = other.Type;
         this.userId = other.userId;
         this.imageBase64 = other.imageBase64;
+    }
+
+    public String getType() {
+        return Type;
+    }
+
+    public void setType(String type) {
+        Type = type;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getImageBase64() {
+        return imageBase64;
+    }
+
+    public void setImageBase64(String imageBase64) {
+        this.imageBase64 = imageBase64;
     }
 
     public String getId() {
@@ -86,22 +112,6 @@ public class Item {
         this.status = status;
     }
 
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public String getImageBase64() {
-        return imageBase64;
-    }
-
-    public void setImageBase64(String imageBase64) {
-        this.imageBase64 = imageBase64;
-    }
-
     @Override
     public String toString() {
         return "Item{" +
@@ -112,9 +122,9 @@ public class Item {
                 ", location='" + location + '\'' +
                 ", conper='" + conper + '\'' +
                 ", status='" + status + '\'' +
+                ", Type='" + Type + '\'' +
                 ", userId='" + userId + '\'' +
-                ", imageBase64' " +
+                ", imageBase64='" + imageBase64 + '\'' +
                 '}';
     }
 }
-

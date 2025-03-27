@@ -100,7 +100,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
             Item item = ItemCountList.get(position).item;
             if (item == null) return;
 
-            holder.itemDescTextView.setText("תיאור הפריט:" + item.getDesc());
+            holder.itemTypeTextView.setText("סוג הפריט:" + item.getType());
             holder.itemDateTextView.setText("תאריך בו נמצאה האבדה :" + item.getDate());
             holder.itemImageView.setImageBitmap(ImageUtil.convertFrom64base(item.getImageBase64()));
 
@@ -125,13 +125,13 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         /// View holder for the foods adapter
         /// @see RecyclerView.ViewHolder
         public static class ViewHolder extends RecyclerView.ViewHolder {
-            public final TextView itemDescTextView;
+            public final TextView itemTypeTextView;
             public final TextView itemDateTextView;
             public final ImageView itemImageView;
 
             public ViewHolder(View itemView) {
                 super(itemView);
-                itemDescTextView = itemView.findViewById(R.id.item_item_desc_text_view);
+                itemTypeTextView = itemView.findViewById(R.id.item_item_type_text_view);
                 itemDateTextView = itemView.findViewById(R.id.item_item_date_text_view);
                 itemImageView = itemView.findViewById(R.id.item_item_image_view);
 

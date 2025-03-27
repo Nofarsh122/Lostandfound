@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,7 +19,8 @@ import com.example.finalproject.services.DatabaseService;
 
 public class ItemProfile extends AppCompatActivity implements View.OnClickListener {
 
-    EditText  etCity, etLocation, etDate, etDesc, etStatus, etConPer;
+    EditText  etCity, etLocation, etDate, etDesc, etConPer, etType;
+    TextView tvStatus;
     Button btnBack, btnContact;
 
     DatabaseService databaseService;
@@ -42,36 +44,35 @@ public class ItemProfile extends AppCompatActivity implements View.OnClickListen
             public void onCompleted(Item item) {
                 setView(item);
             }
-
             @Override
             public void onFailed(Exception e) {
 
             }
         });
     }
-
     private void init_views() {
         etCity = findViewById(R.id.etCity);
+        tvStatus=findViewById(R.id.tvStatus);
+        etType = findViewById(R.id.etType);
         etLocation = findViewById(R.id.etLocation);
         etDate = findViewById(R.id.etDate);
         etDesc = findViewById(R.id.etDesc);
         etConPer= findViewById(R.id.etConPer);
-        etStatus = findViewById(R.id.etStatus);
         btnBack = findViewById(R.id.btnBack);
         btnBack.setOnClickListener(this);
         btnContact = findViewById(R.id.btnContact);
         btnContact.setOnClickListener(this);
     }
-
     void setView(Item item) {
         etCity.setText(item.getCity());
+        tvStatus.setText(item.getStatus());
+        etType.setText(item.getType());
         etLocation.setText(item.getLocation());
         etDate.setText(item.getDate());
         etDesc.setText(item.getDesc());
         etConPer.setText(item.getConper());
-        etStatus.setText(item.getStatus());
-
     }
+
 
     @Override
     public void onClick(View view) {
@@ -84,7 +85,5 @@ public class ItemProfile extends AppCompatActivity implements View.OnClickListen
             Intent goReg = new Intent(getApplicationContext(), ShowItems.class);
             startActivity(goReg);
         }
-
-
     }
 }
