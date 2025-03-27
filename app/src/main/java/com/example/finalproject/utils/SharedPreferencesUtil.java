@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.example.finalproject.model.User;
-import com.example.finalproject.models.User;
 import com.google.gson.Gson;
 
 /// Utility class for shared preferences operations

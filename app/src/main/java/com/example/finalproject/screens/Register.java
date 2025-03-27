@@ -19,6 +19,8 @@ import android.widget.Toast;
 
 import com.example.finalproject.R;
 import com.example.finalproject.model.User;
+import com.example.finalproject.services.AuthenticationService;
+import com.example.finalproject.utils.SharedPreferencesUtil;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -107,36 +109,28 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
 
         if (isValid==true){
 
-            mAuth.createUserWithEmailAndPassword(email, pass)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            AuthenticationService.getInstance().signUp(email, pass, new AuthenticationService.AuthCallback() {
+                @Override
+                public void onCompleted(String uid) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d("TAG", "createUserWithEmail:success");
 
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                // Sign in success, update UI with the signed-in user's information
-                                Log.d("TAG", "createUserWithEmail:success");
-                                FirebaseUser fireuser = mAuth.getCurrentUser();
-
-
-                                User newUser = new User(fireuser.getUid(), fName, lName, phone, email, pass);
-                                myRef.child(mAuth.getUid()).setValue(newUser);
+                    User newUser = new User(uid, fName, lName, phone, email, pass, false);
+                    myRef.child(uid).setValue(newUser);
+                    SharedPreferencesUtil.saveUser(Register.this, newUser);
 
 
-                                Intent goLog = new Intent(getApplicationContext(), Login.class);
-                                startActivity(goLog);
+                    Intent goLog = new Intent(getApplicationContext(), Login.class);
+                    startActivity(goLog);
+                }
 
-
-                            } else {
-                                // If sign in fails, display a message to the user.
-                                Log.w("TAG", "createUserWithEmail:failure", task.getException());
-                                Toast.makeText(Register.this, "Authentication failed.",
-                                        Toast.LENGTH_SHORT).show();
-
-                            }
-
-                        }
-
-                    });
+                @Override
+                public void onFailed(Exception e) {
+                    Log.w("TAG", "createUserWithEmail:failure", e);
+                    Toast.makeText(Register.this, "Authentication failed.",
+                            Toast.LENGTH_SHORT).show();
+                }
+            });
         }
 
     }

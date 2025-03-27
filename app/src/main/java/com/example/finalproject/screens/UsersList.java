@@ -49,7 +49,7 @@ public class UsersList extends AppCompatActivity {
             // Handle user click
             Log.d(TAG, "User clicked: " + user);
             Intent intent = new Intent(this, UserProfile.class);
-            intent.putExtra("USER_UID", user.getUid());
+            intent.putExtra("USER_UID", user.getId());
             startActivity(intent);
 
         };
@@ -68,7 +68,7 @@ public class UsersList extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        databaseService.getUserList(new DatabaseService.DatabaseCallback<>() {
+        databaseService.getUsers(new DatabaseService.DatabaseCallback<List<User>>() {
             @Override
             public void onCompleted(List<User> users) {
                 userAdapter.setUserList(users);

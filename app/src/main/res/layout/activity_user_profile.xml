@@ -6,145 +6,101 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".screens.UserProfile">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#f4f4f4"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:weightSum="10"
+        tools:layout_editor_absoluteX="45dp"
+        tools:layout_editor_absoluteY="-16dp">
 
-    <TextView
-        android:id="@+id/tv_user_profile_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="User Profile"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_user_first_name_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:text="First Name:"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_user_profile_title" />
-
-    <EditText
-        android:id="@+id/et_user_first_name"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:hint="Enter your first name"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_user_first_name_label"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/tv_user_first_name_label"
-        app:layout_constraintTop_toTopOf="@+id/tv_user_first_name_label" />
-
-    <TextView
-        android:id="@+id/tv_user_last_name_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Last Name:"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/tv_user_first_name_label"
-        app:layout_constraintTop_toBottomOf="@id/et_user_first_name" />
-
-    <EditText
-        android:id="@+id/et_user_last_name"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:hint="Enter your last name"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_user_last_name_label"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/tv_user_last_name_label"
-        app:layout_constraintStart_toStartOf="@+id/et_user_first_name"
-        app:layout_constraintTop_toTopOf="@+id/tv_user_last_name_label" />
-
-    <TextView
-        android:id="@+id/tv_user_email_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Email:"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/tv_user_last_name_label"
-        app:layout_constraintTop_toBottomOf="@id/et_user_last_name" />
-
-    <EditText
-        android:id="@+id/et_user_email"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:hint="Enter your email"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_user_email_label"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/tv_user_email_label"
-        app:layout_constraintStart_toStartOf="@+id/et_user_last_name"
-        app:layout_constraintTop_toTopOf="@+id/tv_user_email_label" />
-
-    <TextView
-        android:id="@+id/tv_user_phone_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Phone:"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/tv_user_email_label"
-        app:layout_constraintTop_toBottomOf="@id/et_user_email" />
-
-    <EditText
-        android:id="@+id/et_user_phone"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:hint="Enter your phone number"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_user_phone_label"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/tv_user_phone_label"
-        app:layout_constraintStart_toStartOf="@+id/et_user_email"
-        app:layout_constraintTop_toTopOf="@+id/tv_user_phone_label" />
-
-    <TextView
-        android:id="@+id/tv_user_password_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Password:"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/tv_user_phone_label"
-        app:layout_constraintTop_toBottomOf="@id/et_user_phone" />
-
-    <EditText
-        android:id="@+id/et_user_password"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:hint="Enter your password"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_user_password_label"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/tv_user_password_label"
-        app:layout_constraintStart_toStartOf="@+id/et_user_phone"
-        app:layout_constraintTop_toTopOf="@+id/tv_user_password_label" />
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="20dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="פרטי המשתמש"
+            android:textColor="#333"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
 
-    <Button
-        android:id="@+id/btn_edit_profile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="304dp"
-        android:text="Edit Profile"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.518"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/et_user_password" />
+        <EditText
+            android:id="@+id/etUserFirstName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="16dp"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:hint=" שם פרטי"
+            android:padding="10dp"
+            android:textSize="18dp" />
 
+        <EditText
+            android:id="@+id/etUserLastName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="16dp"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:hint=" שם משפחה"
+            android:padding="10dp"
+            android:textSize="18dp" />
+
+
+        <EditText
+            android:id="@+id/etUserPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="16dp"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:hint=" מס' טלפון"
+            android:padding="10dp"
+            android:textSize="18dp" />
+
+        <EditText
+            android:id="@+id/etUserEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="16dp"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:hint="אימייל"
+            android:padding="10dp"
+            android:textSize="18dp" />
+
+        <EditText
+            android:id="@+id/etUserPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="16dp"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:hint="סיסמא"
+            android:padding="10dp"
+            android:textSize="18dp" />
+
+        <Button
+            android:id="@+id/btnUpdateProfile"
+            android:layout_width="207dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="45dp"
+            android:backgroundTint="#264660"
+            android:gravity="center"
+            android:text="עדכן פרופיל"
+            android:textSize="20dp" />
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

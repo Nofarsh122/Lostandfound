@@ -21,11 +21,11 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent">
 
-    <Button
-        android:id="@+id/btn_admin_to_users"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="To User List" />
-</LinearLayout>
+        <Button
+            android:id="@+id/btn_admin_to_users"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="לרשימת המשתמשים" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

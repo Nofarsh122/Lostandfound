@@ -1,5 +1,7 @@
 package com.example.finalproject.screens;
 
+import static android.content.ContentValues.TAG;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -8,6 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -17,16 +20,18 @@ import com.example.finalproject.R;
 import com.example.finalproject.model.User;
 import com.example.finalproject.services.AuthenticationService;
 import com.example.finalproject.services.DatabaseService;
+import com.example.finalproject.utils.SharedPreferencesUtil;
+import com.example.finalproject.utils.Validator;
 
 public class UserProfile extends AppCompatActivity implements View.OnClickListener {
-    private static final String TAG = "UserProfileActivity";
+    EditText etUserFirstName, etUserLastName, etUserEmail, etUserPhone, etUserPassword;
+     Button btnUpdateProfile;
+    DatabaseService databaseService;
 
-    private EditText etUserFirstName, etUserLastName, etUserEmail, etUserPhone, etUserPassword;
-    private Button btnUpdateProfile;
-    private DatabaseService databaseService;
     String selectedUid;
+    @Nullable
     User selectedUser;
-    boolean isCurrentUser = false;
+    boolean isCurrentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +49,9 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
         selectedUid = getIntent().getStringExtra("USER_UID");
         User currentUser = SharedPreferencesUtil.getUser(this);
         if (selectedUid == null) {
-            selectedUid = currentUser.getUid();
+            selectedUid = currentUser.getId();
         }
-        isCurrentUser = selectedUid.equals(currentUser.getUid());
+        isCurrentUser = selectedUid.equals(currentUser.getId());
         if (!isCurrentUser && !currentUser.isAdmin()) {
             // If the user is not an admin and the selected user is not the current user
             // then finish the activity
@@ -58,21 +63,21 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
         Log.d(TAG, "Selected user: " + selectedUid);
 
         // Initialize the EditText fields
-        etUserFirstName = findViewById(R.id.et_user_first_name);
-        etUserLastName = findViewById(R.id.et_user_last_name);
-        etUserEmail = findViewById(R.id.et_user_email);
-        etUserPhone = findViewById(R.id.et_user_phone);
-        etUserPassword = findViewById(R.id.et_user_password);
-        btnUpdateProfile = findViewById(R.id.btn_edit_profile);
-
+        etUserFirstName = findViewById(R.id.etUserFirstName);
+        etUserLastName = findViewById(R.id.etUserLastName);
+        etUserEmail = findViewById(R.id.etUserEmail);
+        etUserPhone = findViewById(R.id.etUserPhone);
+        etUserPassword = findViewById(R.id.etUserPassword);
+        btnUpdateProfile = findViewById(R.id.btnUpdateProfile);
         btnUpdateProfile.setOnClickListener(this);
 
         showUserProfile();
+
     }
 
     @Override
     public void onClick(View v) {
-        if(v.getId() == R.id.btn_edit_profile) {
+        if(v.getId() == R.id.btnUpdateProfile) {
             updateUserProfile();
             return;
         }
@@ -127,28 +132,15 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
 
         // Update the user data in the authentication
         Log.d(TAG, "Updating user profile");
-        adminService.updateUser(selectedUser, new AuthenticationService.AuthCallback() {
-            @Override
-            public void onCompleted(String uid) {
-                // Update the user data in the database
-                Log.d(TAG, "User profile updated in authentication");
-                Log.d(TAG, "Updating user profile in database");
-                databaseService.createNewUser(selectedUser, new DatabaseService.DatabaseCallback<>() {
-                    @Override
-                    public void onCompleted(Void object) {
-                        Log.d(TAG, "Profile updated successfully");
-                        // Save the updated user data to shared preferences
-                        if (isCurrentUser)
-                            SharedPreferencesUtil.saveUser(getApplicationContext(), selectedUser);
-                        Toast.makeText(UserProfile.this, "Profile updated successfully", Toast.LENGTH_SHORT).show();
-                    }
 
-                    @Override
-                    public void onFailed(Exception e) {
-                        Log.e(TAG, "Error updating profile", e);
-                        Toast.makeText(UserProfile.this, "Failed to update profile", Toast.LENGTH_SHORT).show();
-                    }
-                });
+        databaseService.createNewUser(selectedUser, new DatabaseService.DatabaseCallback<Void>() {
+            @Override
+            public void onCompleted(Void object) {
+                Log.d(TAG, "Profile updated successfully");
+                // Save the updated user data to shared preferences
+                if (isCurrentUser)
+                    SharedPreferencesUtil.saveUser(getApplicationContext(), selectedUser);
+                Toast.makeText(UserProfile.this, "Profile updated successfully", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -157,6 +149,7 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
                 Toast.makeText(UserProfile.this, "Failed to update profile", Toast.LENGTH_SHORT).show();
             }
         });
+
     }
 
     private boolean isValid(String firstName, String lastName, String phone, String email, String password) {

@@ -18,8 +18,8 @@ public class User implements Serializable {
     public User() {
     }
 
-    public User(String uid, String email, String password, String fname, String lname, String phone, boolean isAdmin) {
-        this.id = uid;
+    public User(String id, String email, String password, String fname, String lname, String phone, boolean isAdmin) {
+        this.id = id;
         this.email = email;
         this.password = password;
         this.fname = fname;
@@ -28,12 +28,12 @@ public class User implements Serializable {
         this.isAdmin = isAdmin;
     }
 
-    public String getUid() {
+    public String getId() {
         return id;
     }
 
-    public void setUid(String uid) {
-        this.id = uid;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getEmail() {
@@ -87,11 +87,11 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "User{" +
-                "uid='" + id + '\'' +
+                "id='" + id + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", firstName='" + fname + '\'' +
-                ", LastName='" + lname + '\'' +
+                ", fname='" + fname + '\'' +
+                ", lname='" + lname + '\'' +
                 ", phone='" + phone + '\'' +
                 ", isAdmin=" + isAdmin +
                 '}';

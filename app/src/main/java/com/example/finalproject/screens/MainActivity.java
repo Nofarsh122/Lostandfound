@@ -13,6 +13,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.finalproject.R;
 import com.example.finalproject.services.AuthenticationService;
+import com.example.finalproject.utils.SharedPreferencesUtil;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     Button btnRegHome, btnLogHome, btnAboutUs;
@@ -29,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
 
         if (AuthenticationService.getInstance().isUserSignedIn()) {
-            Intent intent = new Intent(this, UserPage.class);
+            Intent intent = new Intent(this, Login.class);
             startActivity(intent);
             finish();
             return;

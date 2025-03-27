@@ -115,6 +115,29 @@ public class DatabaseService {
         });
     }
 
+    /// get a list of data from the database at a specific path
+    /// @param path the path to get the data from
+    /// @param clazz the class of the objects to return
+    /// @param callback the callback to call when the operation is completed
+    private <T> void getDataList(@NotNull final String path, @NotNull final Class<T> clazz, @NotNull final DatabaseCallback<List<T>> callback) {
+
+        readData(path).get().addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                Log.e(TAG, "Error getting data", task.getException());
+                callback.onFailed(task.getException());
+                return;
+            }
+            List<T> tList = new ArrayList<>();
+            task.getResult().getChildren().forEach(dataSnapshot -> {
+                T t = dataSnapshot.getValue(clazz);
+                tList.add(t);
+            });
+
+            callback.onCompleted(tList);
+        });
+    }
+
+
     /// generate a new id for a new object in the database
     /// @param path the path to generate the id for
     /// @return a new id for the object
@@ -163,7 +186,7 @@ public class DatabaseService {
     /// @see DatabaseCallback
     /// @see User
     public void getUser(@NotNull final String uid, @NotNull final DatabaseCallback<User> callback) {
-        getData("users/" + uid, User.class, callback);
+        getData("Users/" + uid, User.class, callback);
     }
 
 
@@ -217,30 +240,8 @@ public class DatabaseService {
     }
 
     /// get all the users from the database
-    /// @param callback the callback to call when the operation is completed
-    ///              the callback will receive a list of food objects
-    ///            if the operation fails, the callback will receive an exception
-    /// @return void
-    /// @see DatabaseCallback
-    /// @see List
-    /// @see Food
-    /// @see #getData(String, Class, DatabaseCallback)
     public void getUsers(@NotNull final DatabaseCallback<List<User>> callback) {
-        readData("Users").get().addOnCompleteListener(task -> {
-            if (!task.isSuccessful()) {
-                Log.e(TAG, "Error getting data", task.getException());
-                callback.onFailed(task.getException());
-                return;
-            }
-            List<User> users = new ArrayList<>();
-            task.getResult().getChildren().forEach(dataSnapshot -> {
-                User user = dataSnapshot.getValue(User.class);
-                Log.d(TAG, "Got user: " + user);
-                users.add(user);
-            });
-
-            callback.onCompleted(users);
-        });
+        getDataList("Users", User.class, callback);
     }
 
 

@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.finalproject.R;
 import com.example.finalproject.model.User;
-import com.example.finalproject.models.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +24,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     List<User> userList;
     OnUserClickListener onUserClickListener, onLongUserClickListener;
+
     public UserAdapter(@Nullable final OnUserClickListener onUserClickListener, @Nullable final OnUserClickListener onLongUserClickListener) {
         userList = new ArrayList<>();
         this.onUserClickListener = onUserClickListener;
@@ -34,7 +34,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_user, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_item, parent, false);
         return new ViewHolder(view);
     }
 
@@ -78,6 +78,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         userList.add(user);
         notifyItemInserted(userList.size() - 1);
     }
+
     public void updateUser(User user) {
         int index = userList.indexOf(user);
         if (index == -1) return;
@@ -103,3 +104,4 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             tvPhone = itemView.findViewById(R.id.tv_item_user_phone);
         }
     }
+}

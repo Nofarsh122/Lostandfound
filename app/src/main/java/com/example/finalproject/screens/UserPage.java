@@ -90,7 +90,7 @@ public class UserPage extends AppCompatActivity implements View.OnClickListener 
         }
 
         if (btnPer==view) {
-            Intent goReg = new Intent(getApplicationContext(), ShowItems.class);
+            Intent goReg = new Intent(getApplicationContext(), UsersList.class);
             startActivity(goReg);
         }
 

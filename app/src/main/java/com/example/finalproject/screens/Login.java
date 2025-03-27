@@ -18,6 +18,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.finalproject.R;
+import com.example.finalproject.model.User;
+import com.example.finalproject.services.AuthenticationService;
+import com.example.finalproject.services.DatabaseService;
+import com.example.finalproject.utils.SharedPreferencesUtil;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -85,31 +89,40 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         }
 
         if (isValid) {
-            mAuth.signInWithEmailAndPassword(email, pass)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            AuthenticationService.getInstance().signIn(email, pass, new AuthenticationService.AuthCallback() {
+                @Override
+                public void onCompleted(String uid) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d("TAG", "signInWithEmail:success");
+
+                    DatabaseService.getInstance().getUser(uid, new DatabaseService.DatabaseCallback<User>() {
                         @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                // Sign in success, update UI with the signed-in user's information
-                                Log.d("TAG", "signInWithEmail:success");
-                                FirebaseUser user = mAuth.getCurrentUser();
-                                final String userUid = user.getUid();
-
-
-                                Intent go = new Intent(getApplicationContext(), UserPage.class);
-                                startActivity(go);
-                            } else {
-
-//                                // If sign in fails, display a message to the user.
-                                Log.w("etroor sign in", "signInWithEmail:failure", task.getException());
-                                Toast.makeText(getApplicationContext(), "Authentication failed.",
-                                        Toast.LENGTH_SHORT).show();
-                                tvError.setText("משתמש אינו קיים");
-//
-
+                        public void onCompleted(User user) {
+                            if (user == null) {
+                                throw new RuntimeException("ahhhhhhhh!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                             }
+                            SharedPreferencesUtil.saveUser(Login.this, user);
+                            Intent go = new Intent(getApplicationContext(), Landing.class);
+                            startActivity(go);
+                        }
+
+                        @Override
+                        public void onFailed(Exception e) {
+
                         }
                     });
+
+
+                }
+
+                @Override
+                public void onFailed(Exception e) {
+                    Log.w("etroor sign in", "signInWithEmail:failure", e);
+                    Toast.makeText(getApplicationContext(), "Authentication failed.",
+                            Toast.LENGTH_SHORT).show();
+                    tvError.setText("משתמש אינו קיים");
+                }
+            });
         }
 
     }
