@@ -1,25 +1,33 @@
 package com.example.finalproject.services;
 
+import android.content.Context;
+import android.content.res.Resources;
 import android.util.Log;
 
+import com.example.finalproject.R;
+import com.example.finalproject.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.annotations.NotNull;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 public class AuthenticationService {
+
     /// tag for logging
     /// @see Log
     private static final String TAG = "AuthenticationService";
 
     /// callback interface for authentication operations
-    /// @see AuthCallback#onCompleted(Object)
+    /// @see AuthCallback#onCompleted(String uid)
     /// @see AuthCallback#onFailed(Exception)
     public interface AuthCallback {
         /// called when the operation is completed successfully
         /// @param uid the user ID
-        void onCompleted(String uid);
+        public void onCompleted(String uid);
 
         /// called when the operation fails with an exception
-        void onFailed(Exception e);
+        public void onFailed(Exception e);
     }
 
     /// the instance of this class

@@ -104,17 +104,19 @@
             android:padding="10dp"
             android:textSize="18dp" />
 
-        <TextView
-            android:id="@+id/tvStatus"
+        <RadioButton
+            android:id="@+id/radioButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="16dp"
             android:layout_weight="1"
-            android:background="#FFFFFF"
-            android:hint="סטטוס"
-            android:padding="10dp"
-            android:textSize="18dp" />
+            android:text="הפריט נאסף" />
+
+        <RadioButton
+            android:id="@+id/radioButton2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="הפריט עדיין לא נאסף " />
 
         <Button
             android:id="@+id/btnBack"

@@ -1,7 +1,10 @@
 package com.example.finalproject.screens;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,10 +19,12 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.finalproject.R;
+import com.example.finalproject.services.AuthenticationService;
+import com.example.finalproject.utils.SharedPreferencesUtil;
 
 public class UserPage extends AppCompatActivity implements View.OnClickListener {
 
-    Button btnPublic, btnSearch, btnPer;
+    Button btnPublic, btnSearch, btnPer, btnLogout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +46,8 @@ public class UserPage extends AppCompatActivity implements View.OnClickListener 
         btnSearch.setOnClickListener(this);
         btnPer = findViewById(R.id.btnPer);
         btnPer.setOnClickListener(this);
+        btnLogout = findViewById(R.id.btnLogout);
+        btnLogout.setOnClickListener(this);
     }
 
     @Override
@@ -54,18 +61,18 @@ public class UserPage extends AppCompatActivity implements View.OnClickListener 
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         super.onOptionsItemSelected(item);
         int id = item.getItemId();
-         if (id == R.id.menuUserpage) {
-             Intent go=new Intent(this,UserPage.class);
-             startActivity(go);
-             return true;
-         }
+        if (id == R.id.menuUserpage) {
+            Intent go = new Intent(this, UserPage.class);
+            startActivity(go);
+            return true;
+        }
         if (id == R.id.menuMain) {
-            Intent go=new Intent(this,MainActivity.class);
+            Intent go = new Intent(this, MainActivity.class);
             startActivity(go);
             return true;
         }
         if (id == R.id.menuItem) {
-            Toast.makeText(getApplicationContext(),"Item 3 Selected", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Item 3 Selected", Toast.LENGTH_LONG).show();
             return true;
         }
         return false;
@@ -73,29 +80,41 @@ public class UserPage extends AppCompatActivity implements View.OnClickListener 
 
     public void goMyData(View view) {
 
-        Intent go=new Intent(this,HistoryCalls.class);
+        Intent go = new Intent(this, HistoryCalls.class);
         startActivity(go);
     }
 
     @Override
     public void onClick(View view) {
-        if (btnPublic==view) {
+        if (view.getId() == btnLogout.getId()) {
+            Log.d(TAG, "Sign out button clicked");
+            /// Sign out the user using the authentication service
+            AuthenticationService.getInstance().signOut();
+            /// Clear the user data from shared preferences
+            SharedPreferencesUtil.signOutUser(UserPage.this);
+
+            Log.d(TAG, "User signed out, redirecting to LandingActivity");
+            Intent landingIntent = new Intent(UserPage.this, MainActivity.class);
+            /// Clear the back stack (clear history) and start the LandingActivity
+            landingIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(landingIntent);
+            return;
+
+        }
+        if (btnPublic == view) {
             Intent goReg = new Intent(getApplicationContext(), AddItem.class);
             startActivity(goReg);
         }
 
-        if (btnSearch==view) {
+        if (btnSearch == view) {
             Intent goReg = new Intent(getApplicationContext(), ShowItems.class);
             startActivity(goReg);
         }
 
-        if (btnPer==view) {
-            Intent goReg = new Intent(getApplicationContext(), UsersList.class);
+        if (btnPer == view) {
+            Intent goReg = new Intent(getApplicationContext(), UserProfile.class);
             startActivity(goReg);
         }
-
-
-
     }
 }
 

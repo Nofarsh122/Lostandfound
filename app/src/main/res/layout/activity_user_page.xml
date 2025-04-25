@@ -45,24 +45,36 @@
             android:id="@+id/btnSearch"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginTop="50dp"
             android:backgroundTint="#536DFE"
             android:gravity="center"
-            android:layout_gravity="center"
-            android:textAlignment="center"
             android:text="חיפוש אבידה"
+            android:textAlignment="center"
             android:textSize="18sp" />
 
         <Button
             android:id="@+id/btnPer"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginTop="50dp"
             android:backgroundTint="#536DFE"
             android:gravity="center"
-            android:layout_gravity="center"
-            android:textAlignment="center"
             android:text="אזור אישי"
+            android:textAlignment="center"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/btnLogout"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            android:backgroundTint="#536DFE"
+            android:gravity="center"
+            android:text="התנתקות"
+            android:textAlignment="center"
             android:textSize="18sp" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

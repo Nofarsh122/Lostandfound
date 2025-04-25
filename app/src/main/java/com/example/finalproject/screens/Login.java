@@ -38,7 +38,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     EditText etPassLogin, etEmailLogin;
     Button btnSignIn, btnBack;
     String email, pass;
-    TextView tvError;
 
 
     @Override
@@ -118,9 +117,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 @Override
                 public void onFailed(Exception e) {
                     Log.w("etroor sign in", "signInWithEmail:failure", e);
-                    Toast.makeText(getApplicationContext(), "Authentication failed.",
+                    Toast.makeText(getApplicationContext(), "משתמש אינו קיים",
                             Toast.LENGTH_SHORT).show();
-                    tvError.setText("משתמש אינו קיים");
                 }
             });
         }

@@ -23,6 +23,7 @@ public class ItemProfile extends AppCompatActivity implements View.OnClickListen
     TextView tvStatus;
     Button btnBack, btnContact;
 
+
     DatabaseService databaseService;
     String itemId;
 
@@ -72,6 +73,8 @@ public class ItemProfile extends AppCompatActivity implements View.OnClickListen
         etDesc.setText(item.getDesc());
         etConPer.setText(item.getConper());
     }
+
+
 
 
     @Override
