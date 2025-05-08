@@ -124,7 +124,7 @@ public class Item {
                 ", status='" + status + '\'' +
                 ", Type='" + Type + '\'' +
                 ", userId='" + userId + '\'' +
-                ", imageBase64='" + imageBase64 + '\'' +
+//                ", imageBase64='" + imageBase64 + '\'' +
                 '}';
     }
 }

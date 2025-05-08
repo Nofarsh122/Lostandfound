@@ -78,11 +78,6 @@ public class UserPage extends AppCompatActivity implements View.OnClickListener 
         return false;
     }
 
-    public void goMyData(View view) {
-
-        Intent go = new Intent(this, HistoryCalls.class);
-        startActivity(go);
-    }
 
     @Override
     public void onClick(View view) {

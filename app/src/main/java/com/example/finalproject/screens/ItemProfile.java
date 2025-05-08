@@ -23,7 +23,6 @@ public class ItemProfile extends AppCompatActivity implements View.OnClickListen
     TextView tvStatus;
     Button btnBack, btnContact;
 
-
     DatabaseService databaseService;
     String itemId;
 
@@ -53,7 +52,6 @@ public class ItemProfile extends AppCompatActivity implements View.OnClickListen
     }
     private void init_views() {
         etCity = findViewById(R.id.etCity);
-        tvStatus=findViewById(R.id.tvStatus);
         etType = findViewById(R.id.etType);
         etLocation = findViewById(R.id.etLocation);
         etDate = findViewById(R.id.etDate);
@@ -66,7 +64,6 @@ public class ItemProfile extends AppCompatActivity implements View.OnClickListen
     }
     void setView(Item item) {
         etCity.setText(item.getCity());
-        tvStatus.setText(item.getStatus());
         etType.setText(item.getType());
         etLocation.setText(item.getLocation());
         etDate.setText(item.getDate());
