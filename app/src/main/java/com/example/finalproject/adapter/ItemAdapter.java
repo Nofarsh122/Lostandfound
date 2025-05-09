@@ -17,11 +17,14 @@ import com.example.finalproject.screens.ItemProfile;
 import com.example.finalproject.utils.ImageUtil;
 import com.google.firebase.database.annotations.Nullable;
 
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
-        private static class ItemCount {
+
+    private static class ItemCount {
            Item item;
             int quantity;
         }
@@ -121,6 +124,45 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         public int getItemCount() {
             return ItemCountList.size();
         }
+
+
+    public void sortNewToOld() {
+        this.ItemCountList.sort(new Comparator<ItemCount>() {
+            @Override
+            public int compare(ItemCount o1, ItemCount o2) {
+                String[] d1 = o1.item.getDate().split("/");
+                String[] d2 = o2.item.getDate().split("/");
+                Date date1 = new Date(Integer.parseInt(d1[2]),Integer.parseInt(d1[1]),Integer.parseInt(d1[0]));
+                Date date2 = new Date(Integer.parseInt(d2[2]),Integer.parseInt(d2[1]),Integer.parseInt(d2[0]));
+                return date2.compareTo(date1);
+            }
+        });
+        this.notifyDataSetChanged();
+    }
+
+    public void sortOldToNew() {
+        this.ItemCountList.sort(new Comparator<ItemCount>() {
+            @Override
+            public int compare(ItemCount o1, ItemCount o2) {
+                String[] d1 = o1.item.getDate().split("/");
+                String[] d2 = o2.item.getDate().split("/");
+                Date date1 = new Date(Integer.parseInt(d1[2]),Integer.parseInt(d1[1]),Integer.parseInt(d1[0]));
+                Date date2 = new Date(Integer.parseInt(d2[2]),Integer.parseInt(d2[1]),Integer.parseInt(d2[0]));
+                return date1.compareTo(date2);
+            }
+        });
+        this.notifyDataSetChanged();
+    }
+
+    public void sortByType() {
+        this.ItemCountList.sort(new Comparator<ItemCount>() {
+            @Override
+            public int compare(ItemCount o1, ItemCount o2) {
+                return o1.item.getType().compareTo(o2.item.getType());
+            }
+        });
+        this.notifyDataSetChanged();
+    }
 
         /// View holder for the foods adapter
         /// @see RecyclerView.ViewHolder

@@ -44,7 +44,7 @@ public class Landing extends AppCompatActivity implements View.OnClickListener {
                 startActivity(goReg);
             }
 
-            if (btnAdminPage==v) {
+        if (btnAdminPage==v) {
                 Intent goReg = new Intent(getApplicationContext(), AdminPage.class);
                 startActivity(goReg);
             }

@@ -67,17 +67,38 @@ public class ShowItems extends AppCompatActivity{
      list.add("חיפוש על פי:");
      list.add("סדר מהחדש ביותר לישן ביותר");
      list.add(" סדר מהישן ביותר לחדש ביותר");
-     list.add("לפי הסטטוס");
      ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
      adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
      spinner.setAdapter(adapter);
 
+       spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+           @Override
+           public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+               // This is where you handle the selection
+               String selectedItem = parent.getItemAtPosition(position).toString();
+               // Do something with the selected item
+               Toast.makeText(getApplicationContext(), "Selected item: " + selectedItem, Toast.LENGTH_SHORT).show();
+               Log.d("!!!!!!!", selectedItem);
+               if (selectedItem.equals("סדר מהחדש ביותר לישן ביותר")) {
+                   Log.d("!!!!!!!", "sort by " + "סדר מהחדש ביותר לישן ביותר");
+                   itemAdapter.sortNewToOld();
+               }
+               else if (selectedItem.equals(" סדר מהישן ביותר לחדש ביותר")) {
+                   Log.d("!!!!!!!", "sort by " + " סדר מהישן ביותר לחדש ביותר");
+                   itemAdapter.sortOldToNew();
+               }
+           }
+
+           @Override
+           public void onNothingSelected(AdapterView<?> parent) {
+
+           }
+       });
+
      spinner = findViewById(R.id.spCategory5);
      List<String> list1 = new ArrayList<>();
      list1.add("מיין:");
-     list1.add("תאריך");
-     list1.add(" מיקום");
-     list1.add("סוג המוצר");
+     list1.add("סוג הפריט");
      ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list1);
      adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
      spinner.setAdapter(adapter1);
@@ -89,6 +110,12 @@ public class ShowItems extends AppCompatActivity{
                String selectedItem = parentView.getItemAtPosition(position).toString();
                // Do something with the selected item
                Toast.makeText(getApplicationContext(), "Selected item: " + selectedItem, Toast.LENGTH_SHORT).show();
+               Log.d("!!!!!!!", selectedItem);
+
+               if (selectedItem.equals("סוג הפריט")) {
+                   Log.d("!!!!!!!", "sort by " + "סוג הפריט");
+                   itemAdapter.sortByType();
+               }
            }
 
            @Override

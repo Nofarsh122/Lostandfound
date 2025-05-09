@@ -71,9 +71,6 @@ public class ItemProfile extends AppCompatActivity implements View.OnClickListen
         etConPer.setText(item.getConper());
     }
 
-
-
-
     @Override
     public void onClick(View view) {
         if (btnBack==view) {
