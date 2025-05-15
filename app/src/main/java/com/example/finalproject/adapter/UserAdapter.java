@@ -20,15 +20,15 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     public interface OnUserClickListener {
         void onUserClick(User user);
+        void onLongUserClick(User user);
     }
 
     List<User> userList;
-    OnUserClickListener onUserClickListener, onLongUserClickListener;
+    OnUserClickListener onUserClickListener;
 
-    public UserAdapter(@Nullable final OnUserClickListener onUserClickListener, @Nullable final OnUserClickListener onLongUserClickListener) {
+    public UserAdapter(@Nullable final OnUserClickListener onUserClickListener) {
         userList = new ArrayList<>();
         this.onUserClickListener = onUserClickListener;
-        this.onLongUserClickListener = onLongUserClickListener;
     }
 
     @NonNull
@@ -55,8 +55,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         });
 
         holder.itemView.setOnLongClickListener(v -> {
-            if (onLongUserClickListener != null) {
-                onLongUserClickListener.onUserClick(user);
+            if (onUserClickListener != null) {
+                onUserClickListener.onUserClick(user);
             }
             return true;
         });

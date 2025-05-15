@@ -1,18 +1,18 @@
 package com.example.finalproject.model;
 
 public class Item {
-    protected String id, desc, date, city, location, conper, status, Type, userId, imageBase64;
+    protected String id, desc, date, city, location, phonenum , status, Type, userId, imageBase64;
 
     public Item() {
     }
 
-    public Item(String id, String desc, String date, String city, String location, String conper, String status, String type, String userId, String imageBase64) {
+    public Item(String id, String desc, String date, String city, String location, String phonenum, String status, String type, String userId, String imageBase64) {
         this.id = id;
         this.desc = desc;
         this.date = date;
         this.city = city;
         this.location = location;
-        this.conper = conper;
+        this.phonenum = phonenum;
         this.status = status;
         this.Type = type;
         this.userId = userId;
@@ -25,7 +25,7 @@ public class Item {
         this.date = other.date;
         this.city = other.city;
         this.location = other.location;
-        this.conper = other.conper;
+        this.phonenum = other.phonenum;
         this.status = other.status;
         this.Type = other.Type;
         this.userId = other.userId;
@@ -96,12 +96,12 @@ public class Item {
         this.location = location;
     }
 
-    public String getConper() {
-        return conper;
+    public String getPhonenum() {
+        return phonenum;
     }
 
-    public void setConper(String conper) {
-        this.conper = conper;
+    public void setphonenum(String phonenum) {
+        this.phonenum = phonenum;
     }
 
     public String getStatus() {
@@ -120,7 +120,7 @@ public class Item {
                 ", date='" + date + '\'' +
                 ", city='" + city + '\'' +
                 ", location='" + location + '\'' +
-                ", conper='" + conper + '\'' +
+                ", phonenum='" + phonenum + '\'' +
                 ", status='" + status + '\'' +
                 ", Type='" + Type + '\'' +
                 ", userId='" + userId + '\'' +

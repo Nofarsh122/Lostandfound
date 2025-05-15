@@ -27,6 +27,9 @@ public class DatabaseService {
     public void deleteUser(String uid, DatabaseCallback databaseCallback) {
     }
 
+    public void getUserItemList(String currentUserId, DatabaseCallback<List<Item>> databaseCallback) {
+    }
+
     /// callback interface for database operations
     /// @param <T> the type of the object to return
     /// @see DatabaseCallback#onCompleted(Object)

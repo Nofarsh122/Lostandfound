@@ -25,109 +25,109 @@ import java.util.List;
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
     private static class ItemCount {
-           Item item;
-            int quantity;
+       Item item;
+        int quantity;
+    }
+
+
+    private final List<ItemCount> ItemCountList, filterItemCountList;
+
+    Context context;
+
+    public ItemAdapter(Context context) {
+        ItemCountList = new ArrayList<>();
+        filterItemCountList = new ArrayList<>();
+        this.context = context;
+    }
+
+    public void setItems(@NonNull List<Item> items) {
+        this.ItemCountList.clear();
+        this.filterItemCountList.clear();
+        for (Item item : items) {
+            addItem(item);
         }
+        filterItemCountList.addAll(this.ItemCountList);
+        this.notifyDataSetChanged();
+    }
 
-        private final List<ItemCount> ItemCountList;
+    public void filterItems(String text) {
+        filterItemCountList.clear();
+        filterItemCountList.addAll(this.ItemCountList);
+        if (!text.isEmpty())
+            filterItemCountList.removeIf(itemCount -> !itemCount.item.getDesc().contains(text));
+        this.notifyDataSetChanged();
+    }
 
-        Context context;
-
-        public ItemAdapter(Context context) {
-            ItemCountList = new ArrayList<>();
-            this.context = context;
-        }
-
-        public void setItems(@NonNull List<Item> items) {
-            this.ItemCountList.clear();
-            this.addItems(items);
-        }
-
-        public void addItems(@NonNull List<Item> items) {
-            for (Item item : items) {
-                addItem(item);
+    private void addItem(@Nullable Item f) {
+        if (f == null) return;
+        for (int i = 0; i < ItemCountList.size(); i++) {
+            ItemCount itemCount = ItemCountList.get(i);
+            if (itemCount.item.getId().equals(f.getId())) {
+                itemCount.quantity++;
+                notifyItemChanged(i);
+                return;
             }
         }
+        ItemCount itemCount = new ItemCount() {{
+            this.item = new Item(f);
+            this.quantity = 1;
+        }};
+        ItemCountList.add(itemCount);
+        /// notify the adapter that the data has changed
+        /// this specifies that the item at selectedFoods.size() - 1 has been inserted
+        /// and the adapter should update the view
+        /// @see FoodsAdapter#notifyItemInserted(int)
+    }
 
-        public void addItem(@Nullable Item f) {
-            if (f == null) return;
-            for (int i = 0; i < ItemCountList.size(); i++) {
-                ItemCount itemCount = ItemCountList.get(i);
-                if (itemCount.item.getId().equals(f.getId())) {
-                    itemCount.quantity++;
-                    notifyItemChanged(i);
-                    return;
-                }
+
+    /// create a view holder for the adapter
+    /// @param parent the parent view group
+    /// @param viewType the type of the view
+    /// @return the view holder
+    /// @see ViewHolder
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        /// inflate the item_selected_food layout
+        /// @see R.layout.item_selected_food
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_item, parent, false);
+        return new ViewHolder(view);
+    }
+
+    /// bind the view holder with the data
+    /// @param holder the view holder
+    /// @param position the position of the item in the list
+    /// @see ViewHolder
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        Item item = filterItemCountList.get(position).item;
+        if (item == null) return;
+
+        holder.itemTypeTextView.setText("סוג הפריט:" + item.getType());
+        holder.itemDateTextView.setText("תאריך בו נמצאה האבדה :" + item.getDate());
+        holder.itemImageView.setImageBitmap(ImageUtil.convertFrom64base(item.getImageBase64()));
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, ItemProfile.class);
+                intent.putExtra("ITEM_ID", item.getId());
+                context.startActivity(intent);
             }
-            ItemCountList.add(new ItemCount() {{
-                this.item = new Item(f);
-                this.quantity = 1;
-            }});
-            /// notify the adapter that the data has changed
-            /// this specifies that the item at selectedFoods.size() - 1 has been inserted
-            /// and the adapter should update the view
-            /// @see FoodsAdapter#notifyItemInserted(int)
-            notifyItemInserted(ItemCountList.size() - 1);
-        }
+        });
 
-        public List<Item> getitems() {
-            List<Item> items = new ArrayList<>();
-            for (ItemCount itemCount : ItemCountList) {
-                for (int i = 0; i < itemCount.quantity; i++) {
-                    items.add(itemCount.item);
-                }
-            }
-            return items;
-        }
+    }
 
-        /// create a view holder for the adapter
-        /// @param parent the parent view group
-        /// @param viewType the type of the view
-        /// @return the view holder
-        /// @see ViewHolder
-        @NonNull
-        @Override
-        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            /// inflate the item_selected_food layout
-            /// @see R.layout.item_selected_food
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_item, parent, false);
-            return new ViewHolder(view);
-        }
-
-        /// bind the view holder with the data
-        /// @param holder the view holder
-        /// @param position the position of the item in the list
-        /// @see ViewHolder
-        @Override
-        public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-            Item item = ItemCountList.get(position).item;
-            if (item == null) return;
-
-            holder.itemTypeTextView.setText("סוג הפריט:" + item.getType());
-            holder.itemDateTextView.setText("תאריך בו נמצאה האבדה :" + item.getDate());
-            holder.itemImageView.setImageBitmap(ImageUtil.convertFrom64base(item.getImageBase64()));
-
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(context, ItemProfile.class);
-                    intent.putExtra("ITEM_ID", item.getId());
-                    context.startActivity(intent);
-                }
-            });
-
-        }
-
-        /// get the number of items in the list
-        /// @return the number of items in the list
-        @Override
-        public int getItemCount() {
-            return ItemCountList.size();
-        }
+    /// get the number of items in the list
+    /// @return the number of items in the list
+    @Override
+    public int getItemCount() {
+        return filterItemCountList.size();
+    }
 
 
     public void sortNewToOld() {
-        this.ItemCountList.sort(new Comparator<ItemCount>() {
+        this.filterItemCountList.sort(new Comparator<ItemCount>() {
             @Override
             public int compare(ItemCount o1, ItemCount o2) {
                 String[] d1 = o1.item.getDate().split("/");
@@ -141,7 +141,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     }
 
     public void sortOldToNew() {
-        this.ItemCountList.sort(new Comparator<ItemCount>() {
+        this.filterItemCountList.sort(new Comparator<ItemCount>() {
             @Override
             public int compare(ItemCount o1, ItemCount o2) {
                 String[] d1 = o1.item.getDate().split("/");
@@ -155,7 +155,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     }
 
     public void sortByType() {
-        this.ItemCountList.sort(new Comparator<ItemCount>() {
+        this.filterItemCountList.sort(new Comparator<ItemCount>() {
             @Override
             public int compare(ItemCount o1, ItemCount o2) {
                 return o1.item.getType().compareTo(o2.item.getType());

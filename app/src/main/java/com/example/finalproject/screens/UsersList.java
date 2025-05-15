@@ -45,22 +45,24 @@ public class UsersList extends AppCompatActivity {
 
         usersList = findViewById(R.id.rv_users_list);
         usersList.setLayoutManager(new LinearLayoutManager(this));
-        UserAdapter.OnUserClickListener onUserClickListener = user -> {
-            // Handle user click
-            Log.d(TAG, "User clicked: " + user);
-            Intent intent = new Intent(this, UserProfile.class);
-            intent.putExtra("USER_UID", user.getId());
-            startActivity(intent);
+        userAdapter = new UserAdapter(new UserAdapter.OnUserClickListener() {
+            @Override
+            public void onUserClick(User user) {
+                // Handle user click
+                Log.d(TAG, "User clicked: " + user);
+                Intent intent = new Intent(UsersList.this, UserProfile.class);
+                intent.putExtra("USER_UID", user.getId());
+                startActivity(intent);
+            }
 
-        };
-        UserAdapter.OnUserClickListener onLongUserClickListener = user -> {
-            // Handle long user click
-            Log.d(TAG, "User long clicked: " + user);
-            // show popup to delete user
-            showDeleteUserDialog(user);
-
-        };
-        userAdapter = new UserAdapter(onUserClickListener, onLongUserClickListener);
+            @Override
+            public void onLongUserClick(User user) {
+                // Handle long user click
+                Log.d(TAG, "User long clicked: " + user);
+                // show popup to delete user
+                showDeleteUserDialog(user);
+            }
+        });
         usersList.setAdapter(userAdapter);
     }
 

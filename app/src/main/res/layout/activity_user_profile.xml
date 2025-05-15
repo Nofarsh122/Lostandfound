@@ -65,7 +65,8 @@
             android:background="#FFFFFF"
             android:hint=" מס' טלפון"
             android:padding="10dp"
-            android:textSize="18dp" />
+            android:textSize="18dp"
+            android:inputType="phone"/>
 
         <EditText
             android:id="@+id/etUserEmail"

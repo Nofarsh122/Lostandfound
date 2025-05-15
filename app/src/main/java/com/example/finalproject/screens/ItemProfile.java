@@ -1,6 +1,7 @@
 package com.example.finalproject.screens;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -19,7 +20,7 @@ import com.example.finalproject.services.DatabaseService;
 
 public class ItemProfile extends AppCompatActivity implements View.OnClickListener {
 
-    EditText  etCity, etLocation, etDate, etDesc, etConPer, etType;
+    EditText etCity, etLocation, etDate, etDesc, etPhonenum, etType;
     TextView tvStatus;
     Button btnBack, btnContact;
 
@@ -44,43 +45,48 @@ public class ItemProfile extends AppCompatActivity implements View.OnClickListen
             public void onCompleted(Item item) {
                 setView(item);
             }
+
             @Override
             public void onFailed(Exception e) {
 
             }
         });
     }
+
     private void init_views() {
         etCity = findViewById(R.id.etCity);
         etType = findViewById(R.id.etType);
         etLocation = findViewById(R.id.etLocation);
         etDate = findViewById(R.id.etDate);
         etDesc = findViewById(R.id.etDesc);
-        etConPer= findViewById(R.id.etConPer);
+        etPhonenum = findViewById(R.id.etPhonenum);
         btnBack = findViewById(R.id.btnBack);
         btnBack.setOnClickListener(this);
         btnContact = findViewById(R.id.btnContact);
         btnContact.setOnClickListener(this);
     }
+
     void setView(Item item) {
         etCity.setText(item.getCity());
         etType.setText(item.getType());
         etLocation.setText(item.getLocation());
         etDate.setText(item.getDate());
         etDesc.setText(item.getDesc());
-        etConPer.setText(item.getConper());
+        etPhonenum.setText(item.getPhonenum());
     }
 
     @Override
     public void onClick(View view) {
-        if (btnBack==view) {
+        if (btnBack == view) {
             Intent goReg = new Intent(getApplicationContext(), ShowItems.class);
             startActivity(goReg);
         }
 
-        if (btnContact==view) {
-            Intent goReg = new Intent(getApplicationContext(), ShowItems.class);
-            startActivity(goReg);
+        if (btnContact == view) {
+            String phoneNumber = etPhonenum.getText().toString();
+            Intent intent = new Intent(Intent.ACTION_DIAL);
+            intent.setData(Uri.parse("tel:" + phoneNumber));
+            startActivity(intent);
         }
     }
 }

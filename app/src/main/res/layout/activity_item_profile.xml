@@ -93,15 +93,16 @@
             android:textSize="18dp" />
 
         <EditText
-            android:id="@+id/etConPer"
+            android:id="@+id/etPhonenum"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="16dp"
             android:layout_weight="1"
             android:background="#FFFFFF"
-            android:hint="פרטי קשר"
+            android:hint="מספר טלפון"
             android:padding="10dp"
+            android:inputType="phone"
             android:textSize="18dp" />
 
         <Button

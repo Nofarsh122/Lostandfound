@@ -16,7 +16,7 @@ import com.example.finalproject.R;
 
 public class AdminPage extends AppCompatActivity {
 
-    Button btnToUsers;
+    Button btnToUsers , btnToItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,11 +29,18 @@ public class AdminPage extends AppCompatActivity {
             return insets;
         });
 
+        btnToItems = findViewById(R.id.btn_admin_to_items);
+        btnToItems.setOnClickListener(v -> {
+            Intent intent = new Intent(this, ItemsList.class);
+            startActivity(intent);
+        });
+
         btnToUsers = findViewById(R.id.btn_admin_to_users);
         btnToUsers.setOnClickListener(v -> {
             Intent intent = new Intent(this, UsersList.class);
             startActivity(intent);
         });
-    }
 
+  }
 }
+

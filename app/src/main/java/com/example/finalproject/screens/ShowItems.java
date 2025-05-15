@@ -1,17 +1,13 @@
 package com.example.finalproject.screens;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -28,14 +24,7 @@ import com.example.finalproject.R;
 import com.example.finalproject.adapter.ItemAdapter;
 import com.example.finalproject.model.Item;
 import com.example.finalproject.services.DatabaseService;
-import com.example.finalproject.utils.ImageUtil;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,6 +32,7 @@ public class ShowItems extends AppCompatActivity{
 
    RecyclerView rvItems;
    Spinner spinner;
+   EditText etSearchItem;
    ItemAdapter itemAdapter;
    DatabaseService databaseService;
 
@@ -57,6 +47,9 @@ public class ShowItems extends AppCompatActivity{
        return insets;
      });
      databaseService = DatabaseService.getInstance();
+
+       etSearchItem =findViewById(R.id.etSearchItem);
+
 
      rvItems = findViewById(R.id.rvItems);
      rvItems.setLayoutManager(new LinearLayoutManager(this));
@@ -128,7 +121,7 @@ public class ShowItems extends AppCompatActivity{
      databaseService.getItems(new DatabaseService.DatabaseCallback<List<Item>>() {
        @Override
        public void onCompleted(List<Item> items) {
-         itemAdapter.addItems(items);
+         itemAdapter.setItems(items);
        }
 
        @Override
@@ -136,6 +129,24 @@ public class ShowItems extends AppCompatActivity{
 
        }
      });
+
+
+       etSearchItem.addTextChangedListener(new TextWatcher() {
+           @Override
+           public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+           }
+
+           @Override
+           public void onTextChanged(CharSequence s, int start, int before, int count) {
+               itemAdapter.filterItems(s.toString());
+           }
+
+           @Override
+           public void afterTextChanged(Editable s) {
+
+           }
+       });
    }
 
  }
