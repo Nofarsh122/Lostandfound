@@ -3,6 +3,8 @@ package com.example.finalproject.model;
 public class Item {
     protected String id, desc, date, city, location, phonenum , status, Type, userId, imageBase64;
 
+    // status can be "Not Found" or "Found"
+
     public Item() {
     }
 

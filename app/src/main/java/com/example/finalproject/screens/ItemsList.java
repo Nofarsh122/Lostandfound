@@ -44,7 +44,12 @@ public class ItemsList extends AppCompatActivity {
 
         ItemsList = findViewById(R.id.rv_items_list);
         ItemsList.setLayoutManager(new LinearLayoutManager(this));
-        itemAdapter = new ItemAdapter(this);
+        itemAdapter = new ItemAdapter(this, new ItemAdapter.ItemClick() {
+            @Override
+            public void updateDB(Item item) {
+                databaseService.createNewItem(item, null);
+            }
+        });
         ItemsList.setAdapter(itemAdapter);
     }
 

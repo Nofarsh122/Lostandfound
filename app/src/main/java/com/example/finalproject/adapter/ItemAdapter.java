@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,23 +23,31 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
     private static class ItemCount {
-       Item item;
+        Item item;
         int quantity;
+    }
+
+
+    public interface ItemClick {
+        public void updateDB(Item item);
     }
 
 
     private final List<ItemCount> ItemCountList, filterItemCountList;
 
     Context context;
+    ItemClick itemClick;
 
-    public ItemAdapter(Context context) {
+    public ItemAdapter(Context context, ItemClick itemClick) {
         ItemCountList = new ArrayList<>();
         filterItemCountList = new ArrayList<>();
         this.context = context;
+        this.itemClick = itemClick;
     }
 
     public void setItems(@NonNull List<Item> items) {
@@ -116,6 +126,20 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
             }
         });
 
+        if (Objects.equals(item.getStatus(), "Found")) {
+            holder.itemRG.check(R.id.rb_item_item_found);
+        } else {
+            holder.itemRG.check(R.id.rb_item_item_notfound);
+        }
+        holder.itemRG.setOnCheckedChangeListener((group, checkedId) -> {
+            if (checkedId == R.id.rb_item_item_found) {
+                item.setStatus("Found");
+            } else {
+                item.setStatus("Not Found");
+            }
+            itemClick.updateDB(item);
+        });
+
     }
 
     /// get the number of items in the list
@@ -132,8 +156,8 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
             public int compare(ItemCount o1, ItemCount o2) {
                 String[] d1 = o1.item.getDate().split("/");
                 String[] d2 = o2.item.getDate().split("/");
-                Date date1 = new Date(Integer.parseInt(d1[2]),Integer.parseInt(d1[1]),Integer.parseInt(d1[0]));
-                Date date2 = new Date(Integer.parseInt(d2[2]),Integer.parseInt(d2[1]),Integer.parseInt(d2[0]));
+                Date date1 = new Date(Integer.parseInt(d1[2]), Integer.parseInt(d1[1]), Integer.parseInt(d1[0]));
+                Date date2 = new Date(Integer.parseInt(d2[2]), Integer.parseInt(d2[1]), Integer.parseInt(d2[0]));
                 return date2.compareTo(date1);
             }
         });
@@ -146,8 +170,8 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
             public int compare(ItemCount o1, ItemCount o2) {
                 String[] d1 = o1.item.getDate().split("/");
                 String[] d2 = o2.item.getDate().split("/");
-                Date date1 = new Date(Integer.parseInt(d1[2]),Integer.parseInt(d1[1]),Integer.parseInt(d1[0]));
-                Date date2 = new Date(Integer.parseInt(d2[2]),Integer.parseInt(d2[1]),Integer.parseInt(d2[0]));
+                Date date1 = new Date(Integer.parseInt(d1[2]), Integer.parseInt(d1[1]), Integer.parseInt(d1[0]));
+                Date date2 = new Date(Integer.parseInt(d2[2]), Integer.parseInt(d2[1]), Integer.parseInt(d2[0]));
                 return date1.compareTo(date2);
             }
         });
@@ -164,19 +188,25 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         this.notifyDataSetChanged();
     }
 
-        /// View holder for the foods adapter
-        /// @see RecyclerView.ViewHolder
-        public static class ViewHolder extends RecyclerView.ViewHolder {
-            public final TextView itemTypeTextView;
-            public final TextView itemDateTextView;
-            public final ImageView itemImageView;
+    /// View holder for the foods adapter
+    /// @see RecyclerView.ViewHolder
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        public final TextView itemTypeTextView;
+        public final TextView itemDateTextView;
+        public final ImageView itemImageView;
+        public final RadioButton itemFound;
+        public final RadioButton itemNotFound;
+        public final RadioGroup itemRG;
 
-            public ViewHolder(View itemView) {
-                super(itemView);
-                itemTypeTextView = itemView.findViewById(R.id.item_item_type_text_view);
-                itemDateTextView = itemView.findViewById(R.id.item_item_date_text_view);
-                itemImageView = itemView.findViewById(R.id.item_item_image_view);
+        public ViewHolder(View itemView) {
+            super(itemView);
+            itemTypeTextView = itemView.findViewById(R.id.item_item_type_text_view);
+            itemDateTextView = itemView.findViewById(R.id.item_item_date_text_view);
+            itemImageView = itemView.findViewById(R.id.item_item_image_view);
+            itemFound = itemView.findViewById(R.id.rb_item_item_found);
+            itemNotFound = itemView.findViewById(R.id.rb_item_item_notfound);
+            itemRG = itemView.findViewById(R.id.rg_item_item);
 
-            }
         }
     }
+}

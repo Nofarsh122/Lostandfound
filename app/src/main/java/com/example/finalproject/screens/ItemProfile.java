@@ -21,8 +21,7 @@ import com.example.finalproject.services.DatabaseService;
 public class ItemProfile extends AppCompatActivity implements View.OnClickListener {
 
     EditText etCity, etLocation, etDate, etDesc, etPhonenum, etType;
-    TextView tvStatus;
-    Button btnBack, btnContact;
+    Button btnContact;
 
     DatabaseService databaseService;
     String itemId;
@@ -60,8 +59,6 @@ public class ItemProfile extends AppCompatActivity implements View.OnClickListen
         etDate = findViewById(R.id.etDate);
         etDesc = findViewById(R.id.etDesc);
         etPhonenum = findViewById(R.id.etPhonenum);
-        btnBack = findViewById(R.id.btnBack);
-        btnBack.setOnClickListener(this);
         btnContact = findViewById(R.id.btnContact);
         btnContact.setOnClickListener(this);
     }
@@ -77,11 +74,6 @@ public class ItemProfile extends AppCompatActivity implements View.OnClickListen
 
     @Override
     public void onClick(View view) {
-        if (btnBack == view) {
-            Intent goReg = new Intent(getApplicationContext(), ShowItems.class);
-            startActivity(goReg);
-        }
-
         if (btnContact == view) {
             String phoneNumber = etPhonenum.getText().toString();
             Intent intent = new Intent(Intent.ACTION_DIAL);
