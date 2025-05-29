@@ -101,7 +101,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                                 throw new RuntimeException("ahhhhhhhh!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                             }
                             SharedPreferencesUtil.saveUser(Login.this, user);
-                            Intent go = new Intent(getApplicationContext(), Landing.class);
+                            Intent go = new Intent(getApplicationContext(), UserPage.class);
                             startActivity(go);
                         }
 

@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="דף משתמש"
+            android:text="דף למשתמש"
             android:textSize="24sp"
             android:textStyle="bold"
             android:layout_marginTop="5dp"
@@ -30,11 +30,23 @@
             android:layout_weight="1" />
 
         <Button
+            android:id="@+id/btnAdminP"
+            android:layout_width="231dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            android:backgroundTint="#536DFE"
+            android:gravity="center"
+            android:text="מעבר לדף מנהל"
+            android:textAlignment="center"
+            android:textSize="18sp" />
+
+        <Button
             android:id="@+id/btnPublic"
             android:layout_width="231dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="150dp"
+            android:layout_marginTop="50dp"
             android:backgroundTint="#536DFE"
             android:gravity="center"
             android:text="פרסום פריט שמצאתי"

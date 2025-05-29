@@ -24,7 +24,7 @@ import com.example.finalproject.utils.SharedPreferencesUtil;
 
 public class UserPage extends AppCompatActivity implements View.OnClickListener {
 
-    Button btnPublic, btnSearch, btnPer, btnLogout;
+    Button btnPublic, btnSearch, btnPer, btnLogout ,btnAdminP;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +48,8 @@ public class UserPage extends AppCompatActivity implements View.OnClickListener 
         btnPer.setOnClickListener(this);
         btnLogout = findViewById(R.id.btnLogout);
         btnLogout.setOnClickListener(this);
+        btnAdminP = findViewById(R.id.btnAdminP);
+        btnAdminP.setOnClickListener(this);
     }
 
     @Override
@@ -73,6 +75,11 @@ public class UserPage extends AppCompatActivity implements View.OnClickListener 
         }
         if (id == R.id.menuItem) {
             Toast.makeText(getApplicationContext(), "Item 3 Selected", Toast.LENGTH_LONG).show();
+            return true;
+        }
+        if (id == R.id.menuAdmin) {
+            Intent go = new Intent(this, AdminPage.class);
+            startActivity(go);
             return true;
         }
         return false;
@@ -108,6 +115,10 @@ public class UserPage extends AppCompatActivity implements View.OnClickListener 
 
         if (btnPer == view) {
             Intent goReg = new Intent(getApplicationContext(), UserProfile.class);
+            startActivity(goReg);
+        }
+        if (btnAdminP == view) {
+            Intent goReg = new Intent(getApplicationContext(), AdminPage.class);
             startActivity(goReg);
         }
     }

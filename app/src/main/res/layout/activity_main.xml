@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
+    android:background="#F1E7DB"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".screens.MainActivity">
@@ -11,26 +12,36 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp"
-        android:weightSum="10">
+        android:weightSum="10"
+        android:layout_gravity="center">
+
+        <!-- לוגו -->
+
+        <ImageView
+            android:id="@+id/logoImage"
+            android:layout_width="262dp"
+            android:layout_height="250dp"
+            android:layout_gravity="center"
+            android:contentDescription="לוגו אבידות ומציאות"
+            android:src="@drawable/logo_lost_found" />
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="match_parent"
-            android:layout_height="302dp"
-            android:layout_gravity="center"
+            android:layout_height="280dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="אבידות ומציאות"
+            android:text="ברוכים הבאים לאפליקציית
+            אבידות ומציאות"
+            android:textSize="25dp"
             android:textAlignment="center" />
 
         <Button
             android:id="@+id/btnRegHome"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:backgroundTint="#264660"
             android:layout_gravity="center"
+            android:backgroundTint="@color/black"
             android:text="הרשמה" />
 
         <Button
@@ -38,7 +49,7 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:backgroundTint="#264660"
+            android:backgroundTint="@color/black"
             android:text="התחברות"
             android:textAlignment="center" />
 
@@ -47,7 +58,7 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:backgroundTint="#264660"
+            android:backgroundTint="@color/black"
             android:text="אודות"
             android:textAlignment="center" />
 
