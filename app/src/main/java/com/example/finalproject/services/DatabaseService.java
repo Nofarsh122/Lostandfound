@@ -1,10 +1,12 @@
 package com.example.finalproject.services;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.finalproject.model.Item;
 import com.example.finalproject.model.User;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -24,11 +26,6 @@ public class DatabaseService {
     /// @see Log
     private static final String TAG = "DatabaseService";
 
-    public void deleteUser(String uid, DatabaseCallback databaseCallback) {
-    }
-
-    public void getUserItemList(String currentUserId, DatabaseCallback<List<Item>> databaseCallback) {
-    }
 
     /// callback interface for database operations
     /// @param <T> the type of the object to return
@@ -78,7 +75,7 @@ public class DatabaseService {
     /// @return void
     /// @see DatabaseCallback
     private void writeData(@NotNull final String path, @NotNull final Object data, final @Nullable DatabaseCallback<Void> callback) {
-        databaseReference.child(path).setValue(data).addOnCompleteListener(task -> {
+        readData(path).setValue(data).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 if (callback == null) return;
                 callback.onCompleted(task.getResult());
@@ -96,6 +93,19 @@ public class DatabaseService {
 
     private DatabaseReference readData(@NotNull final String path) {
         return databaseReference.child(path);
+    }
+
+    private void deleteData(@NotNull final String path, final @Nullable DatabaseCallback<Void> callback) {
+        readData(path).removeValue(new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                if (error != null) {
+                    callback.onFailed(error.toException());
+                    return;
+                }
+                callback.onCompleted(null);
+            }
+        });
     }
 
 
@@ -165,6 +175,10 @@ public class DatabaseService {
     /// @see User
     public void createNewUser(@NotNull final User user, @Nullable final DatabaseCallback<Void> callback) {
         writeData("users/" + user.getId(), user, callback);
+    }
+
+    public void deleteUser(@NotNull final String userId,@Nullable final DatabaseCallback<Void> callback) {
+        deleteData("users/" + userId, callback);
     }
 
     /// create a new food in the database

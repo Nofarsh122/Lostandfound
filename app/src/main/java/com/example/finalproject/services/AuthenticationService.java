@@ -4,8 +4,12 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import com.example.finalproject.R;
 import com.example.finalproject.model.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.annotations.NotNull;
 
@@ -108,5 +112,10 @@ public class AuthenticationService {
     /// @return true if a user is signed in, false otherwise
     public boolean isUserSignedIn() {
         return mAuth.getCurrentUser() != null;
+    }
+
+    public void deleteCurrentUser(OnCompleteListener<Void> listener) {
+        if (!isUserSignedIn()) return;
+        mAuth.getCurrentUser().delete().addOnCompleteListener(listener);
     }
 }

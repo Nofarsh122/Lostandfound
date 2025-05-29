@@ -1,12 +1,9 @@
 package com.example.finalproject.screens;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -15,68 +12,58 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.finalproject.R;
-import com.example.finalproject.adapter.UserAdapter;
-import com.example.finalproject.model.User;
+import com.example.finalproject.adapter.ItemAdapter;
+import com.example.finalproject.model.Item;
 import com.example.finalproject.services.AuthenticationService;
 import com.example.finalproject.services.DatabaseService;
-import com.example.finalproject.utils.SharedPreferencesUtil;
 
 import java.util.List;
+import java.util.function.Predicate;
 
-public class UsersList extends AppCompatActivity {
+public class MyItems extends AppCompatActivity {
 
-    private static final String TAG = "UsersListActivity";
-    private RecyclerView usersList;
-    private UserAdapter userAdapter;
+    private static final String TAG = "MyItemsList";
+    private RecyclerView MyItemsList;
+    private ItemAdapter itemAdapter;
     private DatabaseService databaseService;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_users_list);
+        setContentView(R.layout.activity_my_items);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
         databaseService = DatabaseService.getInstance();
 
-        usersList = findViewById(R.id.rv_users_list);
-        usersList.setLayoutManager(new LinearLayoutManager(this));
-        userAdapter = new UserAdapter(new UserAdapter.OnUserClickListener() {
+        MyItemsList = findViewById(R.id.rv_MyItems_list);
+        MyItemsList.setLayoutManager(new LinearLayoutManager(this));
+        itemAdapter = new ItemAdapter(this, new ItemAdapter.ItemClick() {
             @Override
-            public void onUserClick(User user) {
-                // Handle user click
-                Log.d(TAG, "User clicked: " + user);
-                Intent intent = new Intent(UsersList.this, UserProfile.class);
-                intent.putExtra("USER_UID", user.getId());
-                startActivity(intent);
-            }
-
-            @Override
-            public void onLongUserClick(User user) {
+            public void updateDB(Item item) {
             }
         });
-        usersList.setAdapter(userAdapter);
+        MyItemsList.setAdapter(itemAdapter);
     }
-
-
     @Override
     protected void onResume() {
         super.onResume();
-        databaseService.getUsers(new DatabaseService.DatabaseCallback<List<User>>() {
+        final String currentUserId = AuthenticationService.getInstance().getCurrentUserId();
+        databaseService.getItems(new DatabaseService.DatabaseCallback<List<Item>>() {
             @Override
-            public void onCompleted(List<User> users) {
-                userAdapter.setUserList(users);
+            public void onCompleted(List<Item> items) {
+                items.removeIf(item -> !item.getUserId().equals(currentUserId));
+                itemAdapter.setItems(items);
             }
 
             @Override
             public void onFailed(Exception e) {
-                Log.e(TAG, "Failed to get users list", e);
+                Log.e(TAG, "Failed to get items list", e);
             }
         });
     }
-
 }

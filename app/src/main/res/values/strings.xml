@@ -1,3 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Lostandfound</string>
+    <string name="app_name">Final Project</string>
+
+    <!-- Icons -->
+    <string name="icon_home">&#xE88A;</string>
+    <string name="icon_person">&#xE7FD;</string>
+    <string name="icon_settings">&#xE8B8;</string>
+    <string name="icon_search">&#xE8B6;</string>
+    <string name="icon_add">&#xE145;</string>
+    <string name="icon_edit">&#xE3C9;</string>
+    <string name="icon_delete">&#xE872;</string>
+    <string name="icon_favorite">&#xE87D;</string>
+    <string name="icon_share">&#xE80D;</string>
+    <string name="icon_menu">&#xE5D2;</string>
+    <string name="icon_back">&#xE5C4;</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">Home</string>
+    <string name="nav_profile">Profile</string>
+    <string name="nav_settings">Settings</string>
+    <string name="nav_search">Search</string>
+
+    <!-- Actions -->
+    <string name="action_add">Add</string>
+    <string name="action_edit">Edit</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_save">Save</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_share">Share</string>
+
+    <!-- Messages -->
+    <string name="msg_loading">Loading…</string>
+    <string name="msg_error">An error occurred</string>
+    <string name="msg_success">Success!</string>
 </resources>

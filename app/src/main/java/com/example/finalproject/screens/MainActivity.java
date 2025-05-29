@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
 
         if (AuthenticationService.getInstance().isUserSignedIn()) {
-            Intent intent = new Intent(this, Landing.class);
+            Intent intent = new Intent(this, UserPage.class);
             startActivity(intent);
             finish();
             return;

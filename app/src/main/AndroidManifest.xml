@@ -13,10 +13,13 @@
         android:theme="@style/Theme.Lostandfound"
         tools:targetApi="31">
         <activity
-            android:name=".screens.ItemsList"
+            android:name=".screens.Landing"
             android:exported="false" />
         <activity
-            android:name=".screens.Landing"
+            android:name=".screens.MyItems"
+            android:exported="false" />
+        <activity
+            android:name=".screens.ItemsList"
             android:exported="false" />
         <activity
             android:name=".screens.UserProfile"

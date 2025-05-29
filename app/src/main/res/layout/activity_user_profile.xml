@@ -103,5 +103,16 @@
             android:text="עדכן פרופיל"
             android:textSize="20dp" />
 
+        <Button
+            android:id="@+id/btnDeleteProfile"
+            android:layout_width="207dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="4dp"
+            android:backgroundTint="#264660"
+            android:gravity="center"
+            android:text="מחק פרופיל"
+            android:textSize="20dp" />
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

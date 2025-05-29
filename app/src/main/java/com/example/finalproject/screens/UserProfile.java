@@ -2,6 +2,7 @@ package com.example.finalproject.screens;
 
 import static android.content.ContentValues.TAG;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -22,16 +24,16 @@ import com.example.finalproject.services.AuthenticationService;
 import com.example.finalproject.services.DatabaseService;
 import com.example.finalproject.utils.SharedPreferencesUtil;
 import com.example.finalproject.utils.Validator;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 
 public class UserProfile extends AppCompatActivity implements View.OnClickListener {
     EditText etUserFirstName, etUserLastName, etUserEmail, etUserPhone, etUserPassword;
-     Button btnUpdateProfile;
+    Button btnUpdateProfile, btnDeleteProfile;
     DatabaseService databaseService;
-
     String selectedUid;
-    @Nullable
     User selectedUser;
-    boolean isCurrentUser;
+    boolean isCurrentUser = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +72,8 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
         etUserPassword = findViewById(R.id.etUserPassword);
         btnUpdateProfile = findViewById(R.id.btnUpdateProfile);
         btnUpdateProfile.setOnClickListener(this);
+        btnDeleteProfile = findViewById(R.id.btnDeleteProfile);
+        btnDeleteProfile.setOnClickListener(this);
 
         showUserProfile();
 
@@ -77,19 +81,52 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
-        if(v.getId() == R.id.btnUpdateProfile) {
+        if (v.getId() == R.id.btnUpdateProfile) {
             updateUserProfile();
+            return;
+        }
+        if (v.getId() == R.id.btnDeleteProfile) {
+            setUserAsDeleted();
             return;
         }
     }
 
+    private void setUserAsDeleted() {
+        if (selectedUser == null) {
+            return;
+        }
+
+        AuthenticationService.getInstance().deleteCurrentUser(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                databaseService.deleteUser(selectedUser.getId(), new DatabaseService.DatabaseCallback() {
+                    @Override
+                    public void onCompleted(Object object) {
+                        Toast.makeText(UserProfile.this, "yayyyyyy", Toast.LENGTH_SHORT).show();
+                        AuthenticationService.getInstance().signOut();
+                        Intent landingIntent = new Intent(UserProfile.this, MainActivity.class);
+                        /// Clear the back stack (clear history) and start the LandingActivity
+                        landingIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(landingIntent);
+                    }
+
+                    @Override
+                    public void onFailed(Exception e) {
+
+                    }
+                });
+            }
+        });
+    }
+
+
     private void showUserProfile() {
-        // Get the user data from shared preferences
+// Get the user data from shared preferences
         databaseService.getUser(selectedUid, new DatabaseService.DatabaseCallback<User>() {
             @Override
             public void onCompleted(User user) {
                 selectedUser = user;
-                // Set the user data to the EditText fields
+// Set the user data to the EditText fields
                 etUserFirstName.setText(user.getFname());
                 etUserLastName.setText(user.getLname());
                 etUserEmail.setText(user.getEmail());
@@ -111,7 +148,7 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
             Toast.makeText(this, "User not found", Toast.LENGTH_SHORT).show();
             return;
         }
-        // Get the updated user data from the EditText fields
+// Get the updated user data from the EditText fields
         String firstName = etUserFirstName.getText().toString();
         String lastName = etUserLastName.getText().toString();
         String phone = etUserPhone.getText().toString();
@@ -123,21 +160,16 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
             return;
         }
 
-        // Update the user object
+// Update the user object
         selectedUser.setFname(firstName);
         selectedUser.setLname(lastName);
         selectedUser.setPhone(phone);
         selectedUser.setEmail(email);
         selectedUser.setPassword(password);
 
-        // Update the user data in the authentication
-        Log.d(TAG, "Updating user profile");
-
         databaseService.createNewUser(selectedUser, new DatabaseService.DatabaseCallback<Void>() {
             @Override
             public void onCompleted(Void object) {
-                Log.d(TAG, "Profile updated successfully");
-                // Save the updated user data to shared preferences
                 if (isCurrentUser)
                     SharedPreferencesUtil.saveUser(getApplicationContext(), selectedUser);
                 Toast.makeText(UserProfile.this, "Profile updated successfully", Toast.LENGTH_SHORT).show();
@@ -180,4 +212,7 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
         }
         return true;
     }
+
+
 }
+

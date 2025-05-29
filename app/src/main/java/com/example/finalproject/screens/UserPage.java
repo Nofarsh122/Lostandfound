@@ -114,7 +114,7 @@ public class UserPage extends AppCompatActivity implements View.OnClickListener 
         }
 
         if (btnPer == view) {
-            Intent goReg = new Intent(getApplicationContext(), UserProfile.class);
+            Intent goReg = new Intent(getApplicationContext(), Landing.class);
             startActivity(goReg);
         }
         if (btnAdminP == view) {
