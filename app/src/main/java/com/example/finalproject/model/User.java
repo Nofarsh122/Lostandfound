@@ -16,10 +16,9 @@ public class User implements Serializable {
     private boolean isAdmin;
 
     public User() {
-        isAdmin = false;
     }
 
-    public User(String id, String email, String password, String fname, String lname, String phone, boolean isAdmin) {
+    public User(String id, String fname, String lname, String phone, String email, String password, boolean isAdmin) {
         this.id = id;
         this.email = email;
         this.password = password;

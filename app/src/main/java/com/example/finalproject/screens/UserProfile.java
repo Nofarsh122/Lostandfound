@@ -121,12 +121,11 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
 
 
     private void showUserProfile() {
-// Get the user data from shared preferences
         databaseService.getUser(selectedUid, new DatabaseService.DatabaseCallback<User>() {
             @Override
             public void onCompleted(User user) {
                 selectedUser = user;
-// Set the user data to the EditText fields
+
                 etUserFirstName.setText(user.getFname());
                 etUserLastName.setText(user.getLname());
                 etUserEmail.setText(user.getEmail());
@@ -148,7 +147,7 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
             Toast.makeText(this, "User not found", Toast.LENGTH_SHORT).show();
             return;
         }
-// Get the updated user data from the EditText fields
+
         String firstName = etUserFirstName.getText().toString();
         String lastName = etUserLastName.getText().toString();
         String phone = etUserPhone.getText().toString();

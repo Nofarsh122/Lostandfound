@@ -19,13 +19,14 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.finalproject.R;
+import com.example.finalproject.model.User;
 import com.example.finalproject.services.AuthenticationService;
 import com.example.finalproject.utils.SharedPreferencesUtil;
 
 public class UserPage extends AppCompatActivity implements View.OnClickListener {
 
     Button btnPublic, btnSearch, btnPer, btnLogout ,btnAdminP;
-
+    User currentUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +37,10 @@ public class UserPage extends AppCompatActivity implements View.OnClickListener 
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        currentUser = SharedPreferencesUtil.getUser(UserPage.this);
+        Log.d(TAG, "User: " + currentUser);
+
         init_views();
     }
 
@@ -50,6 +55,12 @@ public class UserPage extends AppCompatActivity implements View.OnClickListener 
         btnLogout.setOnClickListener(this);
         btnAdminP = findViewById(R.id.btnAdminP);
         btnAdminP.setOnClickListener(this);
+
+        if (currentUser != null && currentUser.isAdmin()) {
+            btnAdminP.setVisibility(View.VISIBLE);
+        } else {
+            btnAdminP.setVisibility(View.GONE);
+        }
     }
 
     @Override

@@ -20,14 +20,9 @@ import android.widget.Toast;
 import com.example.finalproject.R;
 import com.example.finalproject.model.User;
 import com.example.finalproject.services.AuthenticationService;
+import com.example.finalproject.services.DatabaseService;
 import com.example.finalproject.utils.SharedPreferencesUtil;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.example.finalproject.utils.Validator;
 
 
 public class Register extends AppCompatActivity implements View.OnClickListener {
@@ -35,10 +30,6 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
     EditText etFName, etLName, etPhone, etEmail, etPass ;
     Button btnReg;
     String fName,lName, phone, email, pass;
-
-    private FirebaseAuth mAuth;
-    private FirebaseDatabase database;
-    private DatabaseReference myRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,10 +43,6 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
         });
 
         init_views();
-
-        database = FirebaseDatabase.getInstance();
-        myRef = database.getReference("Users");
-        mAuth = FirebaseAuth.getInstance();
 
     }
 
@@ -77,62 +64,74 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
         email=etEmail.getText().toString();
         pass=etPass.getText().toString();
 
-
-
         //check if registration is valid
-        Boolean isValid=true;
-        if (fName.length()<2){
-            Toast.makeText(Register.this,"שם פרטי קצר מדי", Toast.LENGTH_LONG).show();
-            isValid = false;
-        }
-        if (lName.length()<2){
-            Toast.makeText(Register.this,"שם משפחה קצר מדי", Toast.LENGTH_LONG).show();
-            isValid = false;
-        }
-        if (phone.length()<9||phone.length()>10){
-            Toast.makeText(Register.this,"מספר הטלפון לא תקין", Toast.LENGTH_LONG).show();
-            isValid = false;
+        if (!isValid()) {
+            return;
         }
 
-        if (!email.contains("@")){
-            Toast.makeText(Register.this,"כתובת האימייל לא תקינה", Toast.LENGTH_LONG).show();
-            isValid = false;
+        AuthenticationService.getInstance().signUp(email, pass, new AuthenticationService.AuthCallback() {
+            @Override
+            public void onCompleted(String uid) {
+                // Sign in success, update UI with the signed-in user's information
+                Log.d("TAG", "createUserWithEmail:success");
+
+                User newUser = new User(uid, fName, lName, phone, email, pass, false);
+                DatabaseService.getInstance().createNewUser(newUser, new DatabaseService.DatabaseCallback<Void>() {
+                    @Override
+                    public void onCompleted(Void object) {
+                        SharedPreferencesUtil.saveUser(Register.this, newUser);
+                        Intent goLog = new Intent(getApplicationContext(), UserPage.class);
+                        /// Clear the back stack (clear history) and start the LandingActivity
+                        goLog.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(goLog);
+                    }
+
+                    @Override
+                    public void onFailed(Exception e) {
+
+                    }
+                });
+
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+                Log.w("TAG", "createUserWithEmail:failure", e);
+                Toast.makeText(Register.this, "Authentication failed.",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+    private boolean isValid() {
+        if (!Validator.isNameValid(fName)){
+            etFName.setError("שם פרטי קצר מדי");
+            etFName.requestFocus();
+            return false;
         }
-        if(pass.length()<6){
-            Toast.makeText(Register.this,"הסיסמה קצרה מדי", Toast.LENGTH_LONG).show();
-            isValid = false;
+        if (!Validator.isNameValid(lName)){
+            etLName.setError("שם משפחה קצר מדי");
+            etLName.requestFocus();
+            return false;
         }
-        if(pass.length()>20){
-            Toast.makeText(Register.this,"הסיסמה ארוכה מדי", Toast.LENGTH_LONG).show();
-            isValid = false;
-        }
-
-        if (isValid==true){
-
-            AuthenticationService.getInstance().signUp(email, pass, new AuthenticationService.AuthCallback() {
-                @Override
-                public void onCompleted(String uid) {
-                    // Sign in success, update UI with the signed-in user's information
-                    Log.d("TAG", "createUserWithEmail:success");
-
-                    User newUser = new User(uid, fName, lName, phone, email, pass, false);
-                    myRef.child(uid).setValue(newUser);
-                    SharedPreferencesUtil.saveUser(Register.this, newUser);
-
-
-                    Intent goLog = new Intent(getApplicationContext(), Login.class);
-                    startActivity(goLog);
-                }
-
-                @Override
-                public void onFailed(Exception e) {
-                    Log.w("TAG", "createUserWithEmail:failure", e);
-                    Toast.makeText(Register.this, "Authentication failed.",
-                            Toast.LENGTH_SHORT).show();
-                }
-            });
+        if (!Validator.isPhoneValid(phone)){
+            etPhone.setError("מספר הטלפון לא תקין");
+            etPhone.requestFocus();
+            return false;
         }
 
+        if (!Validator.isEmailValid(email)){
+            etEmail.setError("כתובת האימייל לא תקינה");
+            etEmail.requestFocus();
+            return false;
+        }
+        if(!Validator.isPasswordValid(pass)){
+            etPass.setError("הסיסמה קצרה מדי");
+            etPass.requestFocus();
+            return false;
+        }
+        return true;
     }
 
     @Override

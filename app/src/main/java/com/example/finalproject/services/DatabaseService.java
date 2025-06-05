@@ -181,6 +181,24 @@ public class DatabaseService {
         deleteData("users/" + userId, callback);
     }
 
+    /// get a user from the database
+    /// @param uid the id of the user to get
+    /// @param callback the callback to call when the operation is completed
+    ///               the callback will receive the user object
+    ///             if the operation fails, the callback will receive an exception
+    /// @return void
+    /// @see DatabaseCallback
+    /// @see User
+    public void getUser(@NotNull final String uid, @NotNull final DatabaseCallback<User> callback) {
+        getData("users/" + uid, User.class, callback);
+    }
+
+    /// get all the users from the database
+    public void getUsers(@NotNull final DatabaseCallback<List<User>> callback) {
+        getDataList("users", User.class, callback);
+    }
+
+
     /// create a new food in the database
     /// @param food the food object to create
     /// @param callback the callback to call when the operation is completed
@@ -192,21 +210,6 @@ public class DatabaseService {
     public void createNewItem(@NotNull final Item item, @Nullable final DatabaseCallback<Void> callback) {
         writeData("items/" + item.getId(), item, callback);
     }
-
-
-    /// get a user from the database
-    /// @param uid the id of the user to get
-    /// @param callback the callback to call when the operation is completed
-    ///               the callback will receive the user object
-    ///             if the operation fails, the callback will receive an exception
-    /// @return void
-    /// @see DatabaseCallback
-    /// @see User
-    public void getUser(@NotNull final String uid, @NotNull final DatabaseCallback<User> callback) {
-        getData("Users/" + uid, User.class, callback);
-    }
-
-
 
     /// get a food from the database
     /// @param foodId the id of the food to get
@@ -255,11 +258,4 @@ public class DatabaseService {
             callback.onCompleted(items);
         });
     }
-
-    /// get all the users from the database
-    public void getUsers(@NotNull final DatabaseCallback<List<User>> callback) {
-        getDataList("Users", User.class, callback);
-    }
-
-
 }

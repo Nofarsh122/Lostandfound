@@ -48,6 +48,12 @@ public class UsersList extends AppCompatActivity {
         userAdapter = new UserAdapter(new UserAdapter.OnUserClickListener() {
             @Override
             public void onUserClick(User user) {
+                User currentUser = SharedPreferencesUtil.getUser(UsersList.this);
+                if (currentUser == null || (!user.equals(currentUser) && !currentUser.isAdmin())) {
+                    Log.i(TAG, "currentUser:"+(currentUser == null ? null : currentUser.toString()));
+                    Log.i(TAG, "user:"+user.toString());
+                    return;
+                };
                 // Handle user click
                 Log.d(TAG, "User clicked: " + user);
                 Intent intent = new Intent(UsersList.this, UserProfile.class);

@@ -22,18 +22,8 @@ import com.example.finalproject.model.User;
 import com.example.finalproject.services.AuthenticationService;
 import com.example.finalproject.services.DatabaseService;
 import com.example.finalproject.utils.SharedPreferencesUtil;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
-    FirebaseDatabase database;
-    DatabaseReference myRef;
-    private FirebaseAuth mAuth;
 
     EditText etPassLogin, etEmailLogin;
     Button btnSignIn, btnBack;
@@ -51,10 +41,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             return insets;
         });
         init_views();
-        mAuth = FirebaseAuth.getInstance();
-        database = FirebaseDatabase.getInstance();
-        myRef = database.getReference("User");
-
     }
 
     private void init_views() {
@@ -87,42 +73,41 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             isValid = false;
         }
 
-        if (isValid) {
-            AuthenticationService.getInstance().signIn(email, pass, new AuthenticationService.AuthCallback() {
-                @Override
-                public void onCompleted(String uid) {
-                    // Sign in success, update UI with the signed-in user's information
-                    Log.d("TAG", "signInWithEmail:success");
-
-                    DatabaseService.getInstance().getUser(uid, new DatabaseService.DatabaseCallback<User>() {
-                        @Override
-                        public void onCompleted(User user) {
-                            if (user == null) {
-                                throw new RuntimeException("ahhhhhhhh!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                            }
-                            SharedPreferencesUtil.saveUser(Login.this, user);
-                            Intent go = new Intent(getApplicationContext(), UserPage.class);
-                            startActivity(go);
-                        }
-
-                        @Override
-                        public void onFailed(Exception e) {
-
-                        }
-                    });
-
-
-                }
-
-                @Override
-                public void onFailed(Exception e) {
-                    Log.w("etroor sign in", "signInWithEmail:failure", e);
-                    Toast.makeText(getApplicationContext(), "משתמש אינו קיים",
-                            Toast.LENGTH_SHORT).show();
-                }
-            });
+        if (!isValid) {
+            return;
         }
+        AuthenticationService.getInstance().signIn(email, pass, new AuthenticationService.AuthCallback() {
+            @Override
+            public void onCompleted(String uid) {
+                // Sign in success, update UI with the signed-in user's information
+                Log.d("TAG", "signInWithEmail:success");
 
+                DatabaseService.getInstance().getUser(uid, new DatabaseService.DatabaseCallback<User>() {
+                    @Override
+                    public void onCompleted(User user) {
+                        if (user == null) {
+                            throw new RuntimeException("ahhhhhhhh!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                        }
+                        Log.i("Login activity", user.toString());
+                        SharedPreferencesUtil.saveUser(Login.this, user);
+                        Intent go = new Intent(getApplicationContext(), UserPage.class);
+                        startActivity(go);
+                    }
+
+                    @Override
+                    public void onFailed(Exception e) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+                Log.w("etroor sign in", "signInWithEmail:failure", e);
+                Toast.makeText(getApplicationContext(), "משתמש אינו קיים",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
