@@ -1,91 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#f4f4f4"
     tools:context=".screens.UserPage">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="16dp"
-        android:weightSum="10"
-        android:background="#f4f4f4">
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="דף למשתמש"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:textColor="#333"
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="32dp"/>
 
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="דף למשתמש"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:layout_marginTop="5dp"
-            android:textColor="#333"
-            android:layout_marginBottom="20dp"
-            android:layout_weight="1" />
+    <Button
+        android:id="@+id/btnAdminP"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="מעבר לדף מנהל"
+        android:textSize="18sp"
+        android:backgroundTint="#536DFE"
+        android:textColor="#fff"
+        app:layout_constraintTop_toBottomOf="@id/textView5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginTop="100dp"
+        android:paddingVertical="12dp"
+        android:elevation="4dp"
+        android:cornerRadius="8dp" />
 
-        <Button
-            android:id="@+id/btnAdminP"
-            android:layout_width="231dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="50dp"
-            android:backgroundTint="#536DFE"
-            android:gravity="center"
-            android:text="מעבר לדף מנהל"
-            android:textAlignment="center"
-            android:textSize="18sp" />
+    <Button
+        android:id="@+id/btnPublic"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="פרסום פריט שמצאתי"
+        android:textSize="18sp"
+        android:backgroundTint="#536DFE"
+        android:textColor="#fff"
+        app:layout_constraintTop_toBottomOf="@id/btnAdminP"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginTop="16dp"
+        android:paddingVertical="12dp"
+        android:elevation="4dp"
+        android:cornerRadius="8dp" />
 
-        <Button
-            android:id="@+id/btnPublic"
-            android:layout_width="231dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="50dp"
-            android:backgroundTint="#536DFE"
-            android:gravity="center"
-            android:text="פרסום פריט שמצאתי"
-            android:textAlignment="center"
-            android:textSize="18sp" />
+    <Button
+        android:id="@+id/btnSearch"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="חיפוש אבידה"
+        android:textSize="18sp"
+        android:backgroundTint="#536DFE"
+        android:textColor="#fff"
+        app:layout_constraintTop_toBottomOf="@id/btnPublic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginTop="16dp"
+        android:paddingVertical="12dp"
+        android:elevation="4dp"
+        android:cornerRadius="8dp" />
 
-        <Button
-            android:id="@+id/btnSearch"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="50dp"
-            android:backgroundTint="#536DFE"
-            android:gravity="center"
-            android:text="חיפוש אבידה"
-            android:textAlignment="center"
-            android:textSize="18sp" />
+    <Button
+        android:id="@+id/btnPer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="אזור אישי"
+        android:textSize="18sp"
+        android:backgroundTint="#536DFE"
+        android:textColor="#fff"
+        app:layout_constraintTop_toBottomOf="@id/btnSearch"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginTop="16dp"
+        android:paddingVertical="12dp"
+        android:elevation="4dp"
+        android:cornerRadius="8dp" />
 
-        <Button
-            android:id="@+id/btnPer"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="50dp"
-            android:backgroundTint="#536DFE"
-            android:gravity="center"
-            android:text="אזור אישי"
-            android:textAlignment="center"
-            android:textSize="18sp" />
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="התנתקות"
+        android:textSize="18sp"
+        android:backgroundTint="#D32F2F"
+        android:textColor="#fff"
+        app:layout_constraintTop_toBottomOf="@id/btnPer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginTop="24dp"
+        android:paddingVertical="12dp"
+        android:elevation="4dp"
+        android:cornerRadius="8dp" />
 
-        <Button
-            android:id="@+id/btnLogout"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="50dp"
-            android:backgroundTint="#536DFE"
-            android:gravity="center"
-            android:text="התנתקות"
-            android:textAlignment="center"
-            android:textSize="18sp" />
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

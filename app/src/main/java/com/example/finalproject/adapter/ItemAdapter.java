@@ -154,29 +154,52 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         this.filterItemCountList.sort(new Comparator<ItemCount>() {
             @Override
             public int compare(ItemCount o1, ItemCount o2) {
-                String[] d1 = o1.item.getDate().split("/");
-                String[] d2 = o2.item.getDate().split("/");
-                Date date1 = new Date(Integer.parseInt(d1[2]), Integer.parseInt(d1[1]), Integer.parseInt(d1[0]));
-                Date date2 = new Date(Integer.parseInt(d2[2]), Integer.parseInt(d2[1]), Integer.parseInt(d2[0]));
-                return date2.compareTo(date1);
+                Date date1 = parseDateSafely(o1.item.getDate());
+                Date date2 = parseDateSafely(o2.item.getDate());
+
+                if (date1 == null && date2 == null) return 0;
+                if (date1 == null) return 1;
+                if (date2 == null) return -1;
+
+                return date2.compareTo(date1); // הכי חדש קודם
             }
         });
         this.notifyDataSetChanged();
+    }
+    private @Nullable Date parseDateSafely(String dateStr) {
+        if (dateStr == null) return null;
+
+        String[] parts = dateStr.split("/");
+        if (parts.length != 3) return null;
+
+        try {
+            int day = Integer.parseInt(parts[0]);
+            int month = Integer.parseInt(parts[1]) - 1; // חודש ב־Date מתחיל מ־0
+            int year = Integer.parseInt(parts[2]) - 1900; // שנה ב־Date מתחילה מ־1900
+            return new Date(year, month, day);
+        } catch (NumberFormatException e) {
+            return null;
+        }
     }
 
     public void sortOldToNew() {
         this.filterItemCountList.sort(new Comparator<ItemCount>() {
             @Override
             public int compare(ItemCount o1, ItemCount o2) {
-                String[] d1 = o1.item.getDate().split("/");
-                String[] d2 = o2.item.getDate().split("/");
-                Date date1 = new Date(Integer.parseInt(d1[2]), Integer.parseInt(d1[1]), Integer.parseInt(d1[0]));
-                Date date2 = new Date(Integer.parseInt(d2[2]), Integer.parseInt(d2[1]), Integer.parseInt(d2[0]));
-                return date1.compareTo(date2);
+                Date date1 = parseDateSafely(o1.item.getDate());
+                Date date2 = parseDateSafely(o2.item.getDate());
+
+                if (date1 == null && date2 == null) return 0;
+                if (date1 == null) return 1;
+                if (date2 == null) return -1;
+
+                return date1.compareTo(date2); // הכי ישן קודם
             }
         });
         this.notifyDataSetChanged();
     }
+    
+
 
     public void sortByType() {
         this.filterItemCountList.sort(new Comparator<ItemCount>() {

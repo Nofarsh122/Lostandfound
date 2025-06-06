@@ -9,10 +9,10 @@
         android:id="@+id/rg_item_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="38dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btn_delete_item"
-        app:layout_constraintStart_toStartOf="parent">
+        android:layout_marginEnd="94dp"
+        app:layout_constraintEnd_toStartOf="@+id/item_item_type_text_view"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <RadioButton
             android:id="@+id/rb_item_item_found"
@@ -43,38 +43,26 @@
         android:id="@+id/item_item_type_text_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="19dp"
         android:text="סוג הפריט:"
         android:textSize="12dp"
         app:layout_constraintBottom_toTopOf="@+id/item_item_date_text_view"
         app:layout_constraintEnd_toStartOf="@+id/item_item_image_view"
-        app:layout_constraintStart_toEndOf="@+id/btn_delete_item"
-        app:layout_constraintTop_toBottomOf="@+id/btn_delete_item" />
+        app:layout_constraintStart_toEndOf="@+id/rg_item_item"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/item_item_date_text_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="14dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="29dp"
         android:text="תאריך בו נמצא הפריט:"
         android:textSize="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/item_item_image_view"
         app:layout_constraintStart_toEndOf="@+id/rg_item_item"
         app:layout_constraintTop_toBottomOf="@+id/item_item_type_text_view" />
-
-    <Button
-        android:id="@+id/btn_delete_item"
-        android:layout_width="56dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="7dp"
-        android:layout_marginBottom="1dp"
-        android:text="מחק"
-        android:textSize="5dp"
-        app:layout_constraintBottom_toTopOf="@+id/item_item_type_text_view"
-        app:layout_constraintEnd_toStartOf="@+id/item_item_type_text_view"
-        app:layout_constraintStart_toEndOf="@+id/rg_item_item"
-        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

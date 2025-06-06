@@ -13,8 +13,8 @@
         android:theme="@style/Theme.Lostandfound"
         tools:targetApi="31">
         <activity
-            android:name=".screens.Splash"
-            android:exported="true" />
+            android:name=".screens.MainActivity"
+            android:exported="false" />
         <activity
             android:name=".screens.Landing"
             android:exported="false" />
@@ -58,7 +58,7 @@
             android:name=".screens.Register"
             android:exported="false" />
         <activity
-            android:name=".screens.MainActivity"
+            android:name=".screens.Splash"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -17,12 +18,13 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.finalproject.R;
 import com.example.finalproject.model.Item;
 import com.example.finalproject.services.DatabaseService;
+import com.example.finalproject.utils.ImageUtil;
 
 public class ItemProfile extends AppCompatActivity implements View.OnClickListener {
 
     EditText etCity, etLocation, etDate, etDesc, etPhonenum, etType;
+    ImageView etImage;
     Button btnContact;
-
     DatabaseService databaseService;
     String itemId;
 
@@ -59,6 +61,7 @@ public class ItemProfile extends AppCompatActivity implements View.OnClickListen
         etDate = findViewById(R.id.etDate);
         etDesc = findViewById(R.id.etDesc);
         etPhonenum = findViewById(R.id.etPhonenum);
+        etImage = findViewById(R.id.etImage);
         btnContact = findViewById(R.id.btnContact);
         btnContact.setOnClickListener(this);
     }
@@ -70,6 +73,9 @@ public class ItemProfile extends AppCompatActivity implements View.OnClickListen
         etDate.setText(item.getDate());
         etDesc.setText(item.getDesc());
         etPhonenum.setText(item.getPhonenum());
+
+        etImage.setImageBitmap(ImageUtil.convertFrom64base(item.getImageBase64()));
+
     }
 
     @Override
