@@ -104,7 +104,7 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
                     public void onCompleted(Object object) {
                         Toast.makeText(UserProfile.this, "yayyyyyy", Toast.LENGTH_SHORT).show();
                         AuthenticationService.getInstance().signOut();
-                        Intent landingIntent = new Intent(UserProfile.this, MainActivity.class);
+                        Intent landingIntent = new Intent(UserProfile.this, UsersList.class);
                         /// Clear the back stack (clear history) and start the LandingActivity
                         landingIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(landingIntent);

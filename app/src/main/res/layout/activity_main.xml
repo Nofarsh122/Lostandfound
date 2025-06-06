@@ -32,7 +32,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="ברוכים הבאים לאפליקציית
-            אבידות ומציאות"
+                 אבידות ומציאות"
             android:textSize="25dp"
             android:textAlignment="center" />
 
