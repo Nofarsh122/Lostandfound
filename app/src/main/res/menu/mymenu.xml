@@ -2,13 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:title="מסך הבית"
         android:id="@+id/menuMain" />
-    <item android:title="Item"
-        android:id="@+id/menuItem"/>
     <item android:title="הוספת פריט אבוד"
         android:id="@+id/menuAddItem"/>
-    <item android:title="דף המציאות"
+    <item android:title="חיפוש אבידה"
         android:id="@+id/menuShowItems"/>
-    <item android:title="דף משתמש"
+    <item android:title="דף למשתמש"
         android:id="@+id/menuUserpage"/>
     <item android:title="אודות"
         android:id="@+id/menuAboutUs"/>

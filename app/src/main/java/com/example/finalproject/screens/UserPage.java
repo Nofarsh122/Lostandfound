@@ -84,10 +84,6 @@ public class UserPage extends AppCompatActivity implements View.OnClickListener 
             startActivity(go);
             return true;
         }
-        if (id == R.id.menuItem) {
-            Toast.makeText(getApplicationContext(), "Item 3 Selected", Toast.LENGTH_LONG).show();
-            return true;
-        }
         if (id == R.id.menuAdmin) {
             Intent go = new Intent(this, AdminPage.class);
             startActivity(go);

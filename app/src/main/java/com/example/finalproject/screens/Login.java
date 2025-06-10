@@ -26,7 +26,7 @@ import com.example.finalproject.utils.SharedPreferencesUtil;
 public class Login extends AppCompatActivity implements View.OnClickListener {
 
     EditText etPassLogin, etEmailLogin;
-    Button btnSignIn, btnBack;
+    Button btnSignIn;
     String email, pass;
 
 
@@ -48,8 +48,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         etPassLogin = findViewById(R.id.etPassLogin);
         btnSignIn = (Button) findViewById(R.id.btnSignIn);
         btnSignIn.setOnClickListener(this);
-        btnBack = (Button) findViewById(R.id.btnBack);
-        btnBack.setOnClickListener(this);
 
     }
 
