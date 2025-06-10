@@ -3,7 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="#F1E7DB"
     android:layout_height="wrap_content">
+
+
 
     <RadioGroup
         android:id="@+id/rg_item_item"

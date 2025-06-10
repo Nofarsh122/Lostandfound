@@ -3,30 +3,51 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
+    android:background="#F1E7DB"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".screens.Login">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        tools:ignore="MissingConstraints">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:title="Lost and Found App"
+            app:titleTextAppearance="@style/TextAppearance.AppCompat.Large" />
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="16dp"
+        android:layout_marginTop="70dp"
         android:weightSum="10"
-        android:background="#f4f4f4">
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="64dp"
+        tools:ignore="MissingConstraints">
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="20dp"
+            android:layout_weight="1"
             android:gravity="center"
             android:text="כניסה למשתמש"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            android:layout_marginTop="5dp"
             android:textColor="#333"
-            android:layout_marginBottom="20dp"
-            android:layout_weight="1" />
+            android:textSize="30sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/etEmailLogin"
@@ -34,9 +55,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="180dp"
             android:background="#FFFFFF"
-            android:padding="12dp"
             android:hint=" הכנס אימייל"
-            android:inputType="textEmailAddress" />
+            android:inputType="textEmailAddress"
+            android:padding="12dp" />
 
         <EditText
             android:id="@+id/etPassLogin"
@@ -44,21 +65,21 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:background="#FFFFFF"
-            android:padding="12dp"
             android:gravity="right"
             android:hint="הכנס סיסמא"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:padding="12dp" />
 
 
         <Button
             android:id="@+id/btnSignIn"
             android:layout_width="207dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginTop="200dp"
+            android:backgroundTint="#536DFE"
             android:gravity="center"
             android:text="התחבר"
-            android:layout_gravity="center"
-            android:backgroundTint="#536DFE"
             android:textSize="20dp" />
 
         <Button
@@ -66,8 +87,8 @@
             android:layout_width="207dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:backgroundTint="#536DFE"
             android:layout_marginTop="3dp"
+            android:backgroundTint="#536DFE"
             android:gravity="center"
             android:text="חזור "
             android:textSize="20dp" />

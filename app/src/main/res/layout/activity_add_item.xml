@@ -5,7 +5,25 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F1E7DB"
     tools:context=".screens.AddItem">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        tools:ignore="MissingConstraints">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:title="Lost and Found App"
+            app:titleTextAppearance="@style/TextAppearance.AppCompat.Large" />
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,21 +31,22 @@
         android:orientation="vertical"
         android:padding="16dp"
         android:weightSum="10"
-        android:background="#f4f4f4"
-        >
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="64dp">
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:layout_marginBottom="20dp"
+            android:layout_weight="1"
             android:gravity="center"
             android:text="  הוספת פריט"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:layout_marginTop="5dp"
             android:textColor="#333"
-            android:layout_marginBottom="20dp"
-            android:layout_weight="1" />
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/tvItemDesc"
@@ -70,39 +89,38 @@
             android:id="@+id/tvItemCity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="עיר"
-            android:textSize="16sp"
-            android:layout_marginBottom="16dp"
-            android:padding="12dp"
-            android:background="#FFFFFF"
             android:layout_marginTop="5dp"
-            android:layout_weight="1" />
+            android:layout_marginBottom="16dp"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:hint="עיר"
+            android:padding="12dp"
+            android:textSize="16sp" />
 
         <EditText
             android:id="@+id/tvItemLoc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="מיקום מדוייק/כתובת"
-            android:textSize="16sp"
-            android:layout_marginBottom="16dp"
-            android:padding="12dp"
             android:layout_marginTop="5dp"
+            android:layout_marginBottom="16dp"
+            android:layout_weight="1"
             android:background="#FFFFFF"
-            android:layout_weight="1" />
+            android:hint="מיקום מדוייק/כתובת"
+            android:padding="12dp"
+            android:textSize="16sp" />
 
         <EditText
             android:id="@+id/tvItemConPer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="16dp"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
             android:hint="מספר טלפון"
             android:inputType="phone"
-            android:textSize="16sp"
-            android:layout_marginBottom="16dp"
             android:padding="12dp"
-            android:layout_marginTop="5dp"
-            android:background="#FFFFFF"
-            android:layout_weight="1" />
-
+            android:textSize="16sp" />
 
 
         <Button
