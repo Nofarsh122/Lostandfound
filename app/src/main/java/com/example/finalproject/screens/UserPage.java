@@ -74,8 +74,8 @@ public class UserPage extends AppCompatActivity implements View.OnClickListener 
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         super.onOptionsItemSelected(item);
         int id = item.getItemId();
-        if (id == R.id.menuUserpage) {
-            Intent go = new Intent(this, UserPage.class);
+        if (id == R.id.menuLanding) {
+            Intent go = new Intent(this, Landing.class);
             startActivity(go);
             return true;
         }

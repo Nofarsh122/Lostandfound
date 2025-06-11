@@ -30,7 +30,6 @@ public class ItemsList extends AppCompatActivity {
 
     private static final String TAG = "ItemsList";
     private RecyclerView ItemsList;
-    User currentUser;
     private ItemAdapter itemAdapter;
     private DatabaseService databaseService;
 

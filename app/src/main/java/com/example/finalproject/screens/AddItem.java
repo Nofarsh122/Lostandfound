@@ -10,6 +10,8 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -30,7 +32,8 @@ import com.example.finalproject.services.DatabaseService;
 import com.example.finalproject.utils.ImageUtil;
 
 public class AddItem extends AppCompatActivity implements View.OnClickListener {
-    EditText tvItemDesc, tvItemCity, tvItemLoc, tvItemConPer, tvItemDate, tvItemType;
+    EditText tvItemDesc, tvItemLoc, tvItemConPer, tvItemDate;
+    AutoCompleteTextView tvItemCity ,tvItemType;;
     Button btnFindItem, btnGallery, btnCamera;
     ImageView ItemImageView;
     private DatabaseService databaseService;
@@ -89,6 +92,24 @@ public class AddItem extends AppCompatActivity implements View.OnClickListener {
         btnGallery.setOnClickListener(this);
         btnCamera = findViewById(R.id.btnCamera);
         btnCamera.setOnClickListener(this);
+
+
+        ArrayAdapter<String> cityAdapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_dropdown_item_1line,
+                ISRAEL_CITIES
+        );
+        tvItemCity.setAdapter(cityAdapter);
+        tvItemCity.setThreshold(1); // מתחיל להציע כבר מהתו הראשון
+
+
+        ArrayAdapter<String> typeAdapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_dropdown_item_1line,
+                ITEM_TYPES
+        );
+        tvItemType.setAdapter(typeAdapter);
+        tvItemType.setOnClickListener(v -> tvItemType.showDropDown());
     }
 
     @Override
@@ -116,8 +137,8 @@ public class AddItem extends AppCompatActivity implements View.OnClickListener {
 
     private void findItem() {
         String desc = tvItemDesc.getText().toString();
-        String city = tvItemCity.getText().toString();
         String location = tvItemLoc.getText().toString();
+        String city = tvItemCity.getText().toString();
         String conper = tvItemConPer.getText().toString();
         String date = tvItemDate.getText().toString();
         String type = tvItemType.getText().toString();
@@ -152,7 +173,6 @@ public class AddItem extends AppCompatActivity implements View.OnClickListener {
                 /// clear the input fields after adding the food for the next food
                 Log.d(TAG, "Clearing input fields");
                 tvItemDesc.setText("");
-                tvItemCity.setText("");
                 tvItemLoc.setText("");
                 tvItemConPer.setText("");
                 tvItemDate.setText("");
@@ -167,6 +187,120 @@ public class AddItem extends AppCompatActivity implements View.OnClickListener {
             }
         });
     }
+
+    private static final String[] ISRAEL_CITIES = {
+            "אום אל-פחם",
+            "אופקים",
+            "אור עקיבא",
+            "אור יהודה",
+            "אילת",
+            "אלעד",
+            "אריאל",
+            "אשדוד",
+            "אשקלון",
+            "באקה אל-גרבייה",
+            "באר שבע",
+            "באר יעקב",
+            "בית שאן",
+            "בית שמש",
+            "ביתר עילית",
+            "בני ברק",
+            "בת ים",
+            "גבעתיים",
+            "גבעת שמואל",
+            "דימונה",
+            "הוד השרון",
+            "הרצליה",
+            "חדרה",
+            "חולון",
+            "חיפה",
+            "טבריה",
+            "טייבה",
+            "טירה",
+            "טירת כרמל",
+            "יבנה",
+            "יהוד-מונוסון",
+            "יקנעם עילית",
+            "ירושלים",
+            "כפר סבא",
+            "כפר קאסם",
+            "כרמיאל",
+            "לוד",
+            "מגדל העמק",
+            "מודיעין עילית",
+            "מודיעין-מכבים-רעות",
+            "מעלה אדומים",
+            "מעלה עירון",
+            "נהריה",
+            "נוף הגליל",
+            "נחף",
+            "נשר",
+            "נצרת",
+            "נשר",
+            "נס ציונה",
+            "נתיבות",
+            "נתניה",
+            "סח'נין",
+            "עכו",
+            "עפולה",
+            "עראבה",
+            "ערד",
+            "ערערה",
+            "פתח תקווה",
+            "צפת",
+            "קלנסווה",
+            "קריית אונו",
+            "קריית אתא",
+            "קריית ביאליק",
+            "קריית גת",
+            "קריית מלאכי",
+            "קריית מוצקין",
+            "קריית שמונה",
+            "ראש העין",
+            "ראשון לציון",
+            "רחובותר",
+            "רהט",
+            "רמלה",
+            "רמת גן",
+            "רמת השרון",
+            "רעננה",
+            "שפרעם",
+            "תל אביב-יפו",
+            "שדרות"
+    };
+
+    private static final String[] ITEM_TYPES = {
+            "אופניים",
+            "בגדים",
+            "תיק",
+            "משקפיים",
+            "מצלמה",
+            "דרכון",
+            "מפתחות",
+            "נייד",
+            "מחשב נייד",
+            "ספר",
+            "צעצוע",
+            "שעון יד",
+            "כובע",
+            "נעליים",
+            "מוצרי חשמל קטנים",
+            "כסף / ארנק",
+            "תכשיטים",
+            "מסמכים",
+            "כלי עבודה",
+            "כלי בית",
+            "כרטיס אשראי",
+            "מזוודה",
+            "מזרן / שמיכה",
+            "מכשירי ספורט",
+            "כלי כתיבה",
+            "משקפי שמש",
+            "אוזניות",
+            "פנס",
+            "כרטיסים",
+            "אחר",
+    };
 
 
 

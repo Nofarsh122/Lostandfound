@@ -16,6 +16,8 @@
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
+            android:backgroundTint="#264660"
+
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
@@ -60,17 +62,19 @@
             android:padding="12dp"
             android:textSize="16sp" />
 
-        <EditText
+        <AutoCompleteTextView
             android:id="@+id/tvItemType"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="16dp"
-            android:layout_weight="1"
             android:background="#FFFFFF"
-            android:hint="סוג פריט"
+            android:layout_marginBottom="16dp"
             android:padding="12dp"
-            android:textSize="16sp" />
+            android:focusable="false"
+            android:inputType="none"
+            android:hint="בחר סוג פריט"
+            android:textSize="16sp"
+            android:clickable="true"/>
+
 
         <EditText
             android:id="@+id/tvItemDate"
@@ -85,17 +89,17 @@
             android:padding="12dp"
             android:textSize="16sp" />
 
-        <EditText
+        <AutoCompleteTextView
             android:id="@+id/tvItemCity"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="16dp"
             android:layout_weight="1"
             android:background="#FFFFFF"
-            android:hint="עיר"
             android:padding="12dp"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:layout_height="wrap_content"
+            android:hint="הזן עיר" />
 
         <EditText
             android:id="@+id/tvItemLoc"
@@ -163,7 +167,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="15dp"
             android:layout_weight="1"
-            android:backgroundTint="#536DFE"
+            android:backgroundTint="#264660"
             android:gravity="center"
             android:text="העלאת הפריט האבוד"
             android:textAlignment="center"

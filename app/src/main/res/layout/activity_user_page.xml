@@ -16,6 +16,7 @@
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
+            android:backgroundTint="#264660"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
@@ -33,7 +34,6 @@
         android:orientation="vertical"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="0dp"
-
         tools:layout_editor_absoluteY="64dp">
 
         <Button
@@ -41,7 +41,7 @@
             android:layout_width="283dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="200dp"
+            android:layout_marginTop="80dp"
             android:backgroundTint="@color/secondary_variant"
             android:text="מעבר לדף מנהל"
             android:textColor="#fff"
@@ -52,7 +52,7 @@
             android:layout_width="283dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="200dp"
             android:backgroundTint="@color/secondary_variant"
             android:text="פרסום פריט שמצאתי"
             android:textColor="#fff"

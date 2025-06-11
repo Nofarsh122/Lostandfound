@@ -26,7 +26,6 @@ public class DatabaseService {
     /// @see Log
     private static final String TAG = "DatabaseService";
 
-
     /// callback interface for database operations
     /// @param <T> the type of the object to return
     /// @see DatabaseCallback#onCompleted(Object)
@@ -199,48 +198,18 @@ public class DatabaseService {
     }
 
 
-    /// create a new food in the database
-    /// @param food the food object to create
-    /// @param callback the callback to call when the operation is completed
-    ///              the callback will receive void
-    ///             if the operation fails, the callback will receive an exception
-    /// @return void
-    /// @see DatabaseCallback
-    /// @see Food
     public void createNewItem(@NotNull final Item item, @Nullable final DatabaseCallback<Void> callback) {
         writeData("items/" + item.getId(), item, callback);
     }
 
-    /// get a food from the database
-    /// @param foodId the id of the food to get
-    /// @param callback the callback to call when the operation is completed
-    ///               the callback will receive the food object
-    ///              if the operation fails, the callback will receive an exception
-    /// @return void
-    /// @see DatabaseCallback
-    /// @see Food
     public void getItem(@NotNull final String ItemId, @NotNull final DatabaseCallback<Item> callback) {
         getData("items/" + ItemId, Item.class, callback);
     }
 
-    /// generate a new id for a new food in the database
-    /// @return a new id for the food
-    /// @see #generateNewId(String)
-    /// @see Food
     public String generateItemId() {
         return generateNewId("items");
     }
 
-
-    /// get all the foods from the database
-    /// @param callback the callback to call when the operation is completed
-    ///              the callback will receive a list of food objects
-    ///            if the operation fails, the callback will receive an exception
-    /// @return void
-    /// @see DatabaseCallback
-    /// @see List
-    /// @see Food
-    /// @see #getData(String, Class, DatabaseCallback)
     public void getItems(@NotNull final DatabaseCallback<List<Item>> callback) {
         readData("items").get().addOnCompleteListener(task -> {
             if (!task.isSuccessful()) {

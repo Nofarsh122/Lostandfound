@@ -17,6 +17,7 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
+            android:backgroundTint="#264660"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
@@ -30,7 +31,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="21dp"
+        android:backgroundTint="#264660"
         android:text="פרטי המשתמש שלי"
+
         app:layout_constraintBottom_toTopOf="@+id/btn_my_items"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,6 +43,7 @@
         android:id="@+id/btn_my_items"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="#264660"
         android:layout_marginEnd="6dp"
         android:layout_marginBottom="398dp"
         android:text="הפריטים שהעלתי"

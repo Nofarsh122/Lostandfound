@@ -15,8 +15,6 @@
         android:weightSum="10"
         android:layout_gravity="center">
 
-        <!-- לוגו -->
-
         <ImageView
             android:id="@+id/logoImage"
             android:layout_width="262dp"
@@ -32,7 +30,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="ברוכים הבאים לאפליקציית
-                 אבידות ומציאות"
+             אבידות ומציאות"
             android:textSize="25dp"
             android:textAlignment="center" />
 
@@ -63,5 +61,4 @@
             android:textAlignment="center" />
 
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

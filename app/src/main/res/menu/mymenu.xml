@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:title="מסך הבית"
-        android:id="@+id/menuMain" />
+    <item android:title="לדף הראשי"
+        android:id="@+id/menuUserPage"/>
     <item android:title="הוספת פריט אבוד"
         android:id="@+id/menuAddItem"/>
     <item android:title="חיפוש אבידה"
         android:id="@+id/menuShowItems"/>
     <item android:title="דף למשתמש"
-        android:id="@+id/menuUserpage"/>
+        android:id="@+id/menuLanding"/>
     <item android:title="אודות"
         android:id="@+id/menuAboutUs"/>
     <item android:title="לדף מנהל"
         android:id="@+id/menuAdmin"/>
     <item android:title="התנתק"
         android:id="@+id/menuIte"/>
-
 </menu>

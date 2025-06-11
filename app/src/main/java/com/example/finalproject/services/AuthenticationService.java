@@ -82,7 +82,6 @@ public class AuthenticationService {
     ///              the callback will receive the FirebaseUser object if the operation is successful
     ///              if the operation fails, the callback will receive an exception
     /// @see AuthCallback
-    /// @see FirebaseUser
     public void signUp(@NotNull final String email, @NotNull final String password, @NotNull final AuthCallback callback) {
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {

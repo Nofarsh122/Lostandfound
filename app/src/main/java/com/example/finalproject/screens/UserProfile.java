@@ -32,7 +32,7 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
     Button btnUpdateProfile, btnDeleteProfile;
     DatabaseService databaseService;
     String selectedUid;
-    User selectedUser;
+    User selectedUser, currentUser;
     boolean isCurrentUser = false;
 
     @Override
@@ -44,7 +44,11 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
+
         });
+
+        currentUser = SharedPreferencesUtil.getUser(UserProfile.this);
+        Log.d(TAG, "User: " + currentUser);
 
         databaseService = DatabaseService.getInstance();
 
@@ -77,6 +81,11 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
 
         showUserProfile();
 
+        if (currentUser != null && currentUser.isAdmin()) {
+            btnDeleteProfile.setVisibility(View.VISIBLE);
+        } else {
+            btnDeleteProfile.setVisibility(View.GONE);
+        }
     }
 
     @Override

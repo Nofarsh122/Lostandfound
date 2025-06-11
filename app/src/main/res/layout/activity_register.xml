@@ -16,6 +16,7 @@
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
+            android:backgroundTint="#264660"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
@@ -30,7 +31,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="16dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="60dp"
         android:weightSum="10"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="64dp">
@@ -116,7 +117,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="100dp"
             android:layout_weight="1"
-            android:backgroundTint="#536DFE"
+            android:backgroundTint="#264660"
             android:gravity="center"
             android:text="הירשם"
             android:textSize="20dp" />
