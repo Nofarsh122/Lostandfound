@@ -9,11 +9,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -27,11 +29,15 @@ public class UserPage extends AppCompatActivity implements View.OnClickListener 
 
     Button btnPublic, btnSearch, btnPer, btnLogout ,btnAdminP;
     User currentUser;
+    LinearLayout admin_lay;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_user_page);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -55,11 +61,17 @@ public class UserPage extends AppCompatActivity implements View.OnClickListener 
         btnLogout.setOnClickListener(this);
         btnAdminP = findViewById(R.id.btnAdminP);
         btnAdminP.setOnClickListener(this);
+        admin_lay = findViewById(R.id.admin_lay);
+        admin_lay.setOnClickListener(this);
+
 
         if (currentUser != null && currentUser.isAdmin()) {
             btnAdminP.setVisibility(View.VISIBLE);
+            admin_lay.setVisibility(View.VISIBLE);
         } else {
             btnAdminP.setVisibility(View.GONE);
+            admin_lay.setVisibility(View.GONE);
+            ;
         }
     }
 
@@ -71,28 +83,30 @@ public class UserPage extends AppCompatActivity implements View.OnClickListener 
     }
 
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        super.onOptionsItemSelected(item);
+    public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.menuLanding) {
-            Intent go = new Intent(this, Landing.class);
-            startActivity(go);
-            return true;
-        }
         if (id == R.id.menuUserPage) {
-            Intent go = new Intent(this, UserPage.class);
-            startActivity(go);
+            startActivity(new Intent(this, UserPage.class));
+            return true;
+        } else if (id == R.id.menuAddItem) {
+            startActivity(new Intent(this, AddItem.class));
+            return true;
+        } else if (id == R.id.menuShowItems) {
+            startActivity(new Intent(this, ShowItems.class));
+            return true;
+        } else if (id == R.id.menuLanding) {
+            startActivity(new Intent(this, Landing.class));
+            return true;
+        } else if (id == R.id.menuAboutUs) {
+            startActivity(new Intent(this, AboutUs.class));
+            return true;
+        } else if (id == R.id.menuIte) {
+            startActivity(new Intent(this, MainActivity.class));
             return true;
         }
-        if (id == R.id.menuAdmin) {
-            Intent go = new Intent(this, AdminPage.class);
-            startActivity(go);
-            return true;
-        }
-        return false;
+
+        return super.onOptionsItemSelected(item);
     }
-
-
     @Override
     public void onClick(View view) {
         if (view.getId() == btnLogout.getId()) {

@@ -4,22 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:background="#F1E7DB"
     android:layout_height="match_parent"
+    android:background="#F1E7DB"
     tools:context=".screens.Landing">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
+        android:id="@+id/appBarLayout5"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="36dp"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:layout_constraintBottom_toTopOf="@+id/textView6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:backgroundTint="#6D4C41"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
+            android:backgroundTint="#6D4C41"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             app:title="Lost and Found App"
             app:titleTextAppearance="@style/TextAppearance.AppCompat.Large" />
@@ -30,38 +36,47 @@
         android:id="@+id/btn_user_profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="21dp"
+        android:layout_marginEnd="29dp"
+        android:layout_marginBottom="329dp"
         android:backgroundTint="#6D4C41"
         android:text="פרטי המשתמש שלי"
-
-        app:layout_constraintBottom_toTopOf="@+id/btn_my_items"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/btn_my_items" />
 
     <Button
         android:id="@+id/btn_my_items"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="#6D4C41"
         android:layout_marginEnd="6dp"
-        android:layout_marginBottom="398dp"
+        android:layout_marginBottom="13dp"
+        android:backgroundTint="#6D4C41"
         android:text="הפריטים שהעלתי"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btn_user_profile"
         app:layout_constraintEnd_toEndOf="@+id/btn_user_profile"
-        app:layout_constraintTop_toBottomOf="@+id/btn_user_profile" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <TextView
         android:id="@+id/textView6"
         android:layout_width="121dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginBottom="88dp"
+        android:layout_height="24dp"
         android:text="אזורך האישי"
         android:textSize="20dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/btn_user_profile"
+        app:layout_constraintBottom_toTopOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout5" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="224dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="14dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_my_items"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6"
+        app:srcCompat="@drawable/logo_lost_found" />
 </androidx.constraintlayout.widget.ConstraintLayout>

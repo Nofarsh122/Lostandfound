@@ -10,8 +10,6 @@
         android:id="@+id/menuLanding"/>
     <item android:title="אודות"
         android:id="@+id/menuAboutUs"/>
-    <item android:title="לדף מנהל"
-        android:id="@+id/menuAdmin"/>
     <item android:title="התנתק"
         android:id="@+id/menuIte"/>
 </menu>

@@ -52,7 +52,7 @@ public class ItemsList extends AppCompatActivity {
         ItemsList.setLayoutManager(new LinearLayoutManager(this));
         itemAdapter = new ItemAdapter(this, new ItemAdapter.ItemClick() {
             @Override
-            public void updateDB(Item item) {
+            public void updateDB(int position, Item item) {
                 databaseService.createNewItem(item, null);
             }
         });

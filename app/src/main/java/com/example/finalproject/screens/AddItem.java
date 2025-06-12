@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -21,6 +22,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -45,6 +47,8 @@ public class AddItem extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_add_item);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -76,6 +80,32 @@ public class AddItem extends AppCompatActivity implements View.OnClickListener {
                     }
                 });
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.menuUserPage) {
+            startActivity(new Intent(this, UserPage.class));
+            return true;
+        } else if (id == R.id.menuAddItem) {
+            startActivity(new Intent(this, AddItem.class));
+            return true;
+        } else if (id == R.id.menuShowItems) {
+            startActivity(new Intent(this, ShowItems.class));
+            return true;
+        } else if (id == R.id.menuLanding) {
+            startActivity(new Intent(this, Landing.class));
+            return true;
+        } else if (id == R.id.menuAboutUs) {
+            startActivity(new Intent(this, AboutUs.class));
+            return true;
+        } else if (id == R.id.menuIte) {
+            startActivity(new Intent(this, MainActivity.class));
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     private void init_views() {

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -24,7 +26,7 @@ public class ItemProfile extends AppCompatActivity implements View.OnClickListen
 
     EditText etCity, etLocation, etDate, etDesc, etPhonenum, etType;
     ImageView etImage;
-    Button btnContact, btnDirec;
+    Button btnContact;
     DatabaseService databaseService;
     String itemId;
 
@@ -33,6 +35,8 @@ public class ItemProfile extends AppCompatActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_item_profile);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -64,8 +68,6 @@ public class ItemProfile extends AppCompatActivity implements View.OnClickListen
         etImage = findViewById(R.id.etImage);
         btnContact = findViewById(R.id.btnContact);
         btnContact.setOnClickListener(this);
-        btnDirec = findViewById(R.id.btnDirec);
-        btnDirec.setOnClickListener(this);
     }
 
     void setView(Item item) {
@@ -75,11 +77,35 @@ public class ItemProfile extends AppCompatActivity implements View.OnClickListen
         etDate.setText(item.getDate());
         etDesc.setText(item.getDesc());
         etPhonenum.setText(item.getPhonenum());
-
         etImage.setImageBitmap(ImageUtil.convertFrom64base(item.getImageBase64()));
 
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.menuUserPage) {
+            startActivity(new Intent(this, UserPage.class));
+            return true;
+        } else if (id == R.id.menuAddItem) {
+            startActivity(new Intent(this, AddItem.class));
+            return true;
+        } else if (id == R.id.menuShowItems) {
+            startActivity(new Intent(this, ShowItems.class));
+            return true;
+        } else if (id == R.id.menuLanding) {
+            startActivity(new Intent(this, Landing.class));
+            return true;
+        } else if (id == R.id.menuAboutUs) {
+            startActivity(new Intent(this, AboutUs.class));
+            return true;
+        } else if (id == R.id.menuIte) {
+            startActivity(new Intent(this, MainActivity.class));
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
     @SuppressLint("QueryPermissionsNeeded")
     @Override
     public void onClick(View view) {
@@ -88,17 +114,6 @@ public class ItemProfile extends AppCompatActivity implements View.OnClickListen
             Intent intent = new Intent(Intent.ACTION_DIAL);
             intent.setData(Uri.parse("tel:" + phoneNumber));
             startActivity(intent);
-        }
-        if (view == btnDirec) {
-            String location = etLocation.getText().toString();
-            if (!location.isEmpty()) {
-                Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + Uri.encode(location));
-                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-                mapIntent.setPackage("com.google.android.apps.maps");
-                if (mapIntent.resolveActivity(getPackageManager()) != null) {
-                    startActivity(mapIntent);
-                }
-            }
         }
     }
 }

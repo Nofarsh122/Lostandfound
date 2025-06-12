@@ -227,4 +227,12 @@ public class DatabaseService {
             callback.onCompleted(items);
         });
     }
+
+    public void deleteItem(String itemId, DatabaseCallback<Void> callback) {
+        // מימוש המחיקה מבסיס הנתונים (Firebase לדוגמה)
+        FirebaseDatabase.getInstance().getReference("items").child(itemId).removeValue()
+                .addOnSuccessListener(aVoid -> callback.onCompleted(null))
+                .addOnFailureListener(callback::onFailed);
+    }
+
 }

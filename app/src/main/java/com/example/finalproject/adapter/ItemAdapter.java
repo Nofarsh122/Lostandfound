@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.finalproject.R;
 import com.example.finalproject.model.Item;
 import com.example.finalproject.screens.ItemProfile;
+import com.example.finalproject.services.AuthenticationService;
 import com.example.finalproject.utils.ImageUtil;
 import com.google.firebase.database.annotations.Nullable;
 
@@ -34,7 +35,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
 
     public interface ItemClick {
-        public void updateDB(Item item);
+        public void updateDB(int position, Item item);
     }
 
 
@@ -131,14 +132,33 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         } else {
             holder.itemRG.check(R.id.rb_item_item_notfound);
         }
+
+        holder.itemRG.setClickable(AuthenticationService.getInstance().getCurrentUserId().equals(item.getUserId()));
+        holder.itemView.findViewById(R.id.rb_item_item_found).setClickable(AuthenticationService.getInstance().getCurrentUserId().equals(item.getUserId()));
+        holder.itemView.findViewById(R.id.rb_item_item_notfound).setClickable(AuthenticationService.getInstance().getCurrentUserId().equals(item.getUserId()));
+        holder.itemRG.setOnCheckedChangeListener(null); // כדי למנוע קריאה חוזרת מיותרת
+
         holder.itemRG.setOnCheckedChangeListener((group, checkedId) -> {
+            if (!AuthenticationService.getInstance().getCurrentUserId().equals(item.getUserId()))
+                return;
+
             if (checkedId == R.id.rb_item_item_found) {
-                item.setStatus("Found");
-            } else {
+                new androidx.appcompat.app.AlertDialog.Builder(context)
+                    .setTitle("מחיקת פריט")
+                    .setMessage("האם אתה בטוח שברצונך למחוק את הפריט הזה?")
+                    .setPositiveButton("כן", (dialog, which) -> {
+                        item.setStatus("Found");
+                        itemClick.updateDB(position, item);
+                    })
+                    .setNegativeButton("לא", (dialog, which) -> {
+                    })
+                    .show();
+            } else if (checkedId == R.id.rb_item_item_notfound) {
                 item.setStatus("Not Found");
+                itemClick.updateDB(position, item);
             }
-            itemClick.updateDB(item);
         });
+
 
     }
 
@@ -232,4 +252,14 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
         }
     }
+    public Item getItemAt(int position) {
+        return filterItemCountList.get(position).item;
+    }
+
+    public void removeItemAt(int position) {
+        filterItemCountList.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, filterItemCountList.size());
+    }
+
 }

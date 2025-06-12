@@ -1,9 +1,11 @@
 package com.example.finalproject.screens;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,6 +16,7 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -23,6 +26,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.finalproject.R;
 import com.example.finalproject.adapter.ItemAdapter;
 import com.example.finalproject.model.Item;
+import com.example.finalproject.services.AuthenticationService;
 import com.example.finalproject.services.DatabaseService;
 
 import java.util.ArrayList;
@@ -41,6 +45,8 @@ public class ShowItems extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_show_items);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -53,7 +59,9 @@ public class ShowItems extends AppCompatActivity {
 
         rvItems = findViewById(R.id.rvItems);
         rvItems.setLayoutManager(new LinearLayoutManager(this));
-        itemAdapter = new ItemAdapter(this, item -> databaseService.createNewItem(item, null));
+        itemAdapter = new ItemAdapter(this, (position, item) -> {
+            databaseService.createNewItem(item, null);
+        });
         rvItems.setAdapter(itemAdapter);
         spinner = findViewById(R.id.spSubCategory5);
         List<String> list = new ArrayList<>();
@@ -146,6 +154,55 @@ public class ShowItems extends AppCompatActivity {
 
             }
         });
+
+        itemAdapter = new ItemAdapter(this, (position, item) -> {
+            if (item == null) {
+                // מחיקת פריט
+                Item itemToDelete = itemAdapter.getItemAt(position);
+                databaseService.deleteItem(itemToDelete.getId(), new DatabaseService.DatabaseCallback<Void>() {
+                    @Override
+                    public void onCompleted(Void result) {
+                        Toast.makeText(ShowItems.this, "הפריט נמחק בהצלחה", Toast.LENGTH_SHORT).show();
+                        itemAdapter.removeItemAt(position);
+                    }
+
+                    @Override
+                    public void onFailed(Exception e) {
+                        Toast.makeText(ShowItems.this, "שגיאה במחיקת הפריט", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            } else {
+                databaseService.createNewItem(item, null);
+            }
+        });
+
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.menuUserPage) {
+            startActivity(new Intent(this, UserPage.class));
+            return true;
+        } else if (id == R.id.menuAddItem) {
+            startActivity(new Intent(this, AddItem.class));
+            return true;
+        } else if (id == R.id.menuShowItems) {
+            startActivity(new Intent(this, ShowItems.class));
+            return true;
+        } else if (id == R.id.menuLanding) {
+            startActivity(new Intent(this, Landing.class));
+            return true;
+        } else if (id == R.id.menuAboutUs) {
+            startActivity(new Intent(this, AboutUs.class));
+            return true;
+        } else if (id == R.id.menuIte) {
+            startActivity(new Intent(this, MainActivity.class));
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 }

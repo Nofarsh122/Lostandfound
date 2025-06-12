@@ -6,11 +6,13 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -29,6 +31,8 @@ public class AdminPage extends AppCompatActivity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_admin_page);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -49,8 +53,7 @@ public class AdminPage extends AppCompatActivity implements View.OnClickListener
 
         btn_admin_logout = findViewById(R.id.btn_admin_logout);
         btn_admin_logout.setOnClickListener(this);
-
-  }
+    }
 
     @Override
     public void onClick(View v) {
@@ -69,6 +72,32 @@ public class AdminPage extends AppCompatActivity implements View.OnClickListener
             return;
 
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.menuUserPage) {
+            startActivity(new Intent(this, UserPage.class));
+            return true;
+        } else if (id == R.id.menuAddItem) {
+            startActivity(new Intent(this, AddItem.class));
+            return true;
+        } else if (id == R.id.menuShowItems) {
+            startActivity(new Intent(this, ShowItems.class));
+            return true;
+        } else if (id == R.id.menuLanding) {
+            startActivity(new Intent(this, Landing.class));
+            return true;
+        } else if (id == R.id.menuAboutUs) {
+            startActivity(new Intent(this, AboutUs.class));
+            return true;
+        } else if (id == R.id.menuIte) {
+            startActivity(new Intent(this, MainActivity.class));
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
 
