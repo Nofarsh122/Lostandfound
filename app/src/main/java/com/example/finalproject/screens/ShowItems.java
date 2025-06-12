@@ -28,6 +28,7 @@ import com.example.finalproject.adapter.ItemAdapter;
 import com.example.finalproject.model.Item;
 import com.example.finalproject.services.AuthenticationService;
 import com.example.finalproject.services.DatabaseService;
+import com.example.finalproject.utils.SharedPreferencesUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +62,7 @@ public class ShowItems extends AppCompatActivity {
         rvItems.setLayoutManager(new LinearLayoutManager(this));
         itemAdapter = new ItemAdapter(this, (position, item) -> {
             databaseService.createNewItem(item, null);
+            itemAdapter.removeItemAt(position);
         });
         rvItems.setAdapter(itemAdapter);
         spinner = findViewById(R.id.spSubCategory5);
@@ -128,6 +130,7 @@ public class ShowItems extends AppCompatActivity {
         databaseService.getItems(new DatabaseService.DatabaseCallback<List<Item>>() {
             @Override
             public void onCompleted(List<Item> items) {
+                items.removeIf(item -> item.getStatus().equals("Found"));
                 runOnUiThread(() -> itemAdapter.setItems(items));
 
             }
@@ -180,6 +183,8 @@ public class ShowItems extends AppCompatActivity {
             startActivity(new Intent(this, AboutUs.class));
             return true;
         } else if (id == R.id.menuIte) {
+            AuthenticationService.getInstance().signOut();
+            SharedPreferencesUtil.signOutUser(this);
             startActivity(new Intent(this, MainActivity.class));
             return true;
         }

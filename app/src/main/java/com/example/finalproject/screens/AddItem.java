@@ -32,6 +32,7 @@ import com.example.finalproject.model.Item;
 import com.example.finalproject.services.AuthenticationService;
 import com.example.finalproject.services.DatabaseService;
 import com.example.finalproject.utils.ImageUtil;
+import com.example.finalproject.utils.SharedPreferencesUtil;
 
 public class AddItem extends AppCompatActivity implements View.OnClickListener {
     EditText tvItemDesc, tvItemLoc, tvItemConPer, tvItemDate;
@@ -101,6 +102,8 @@ public class AddItem extends AppCompatActivity implements View.OnClickListener {
             startActivity(new Intent(this, AboutUs.class));
             return true;
         } else if (id == R.id.menuIte) {
+            AuthenticationService.getInstance().signOut();
+            SharedPreferencesUtil.signOutUser(this);
             startActivity(new Intent(this, MainActivity.class));
             return true;
         }
@@ -130,7 +133,7 @@ public class AddItem extends AppCompatActivity implements View.OnClickListener {
                 ISRAEL_CITIES
         );
         tvItemCity.setAdapter(cityAdapter);
-        tvItemCity.setThreshold(1); // מתחיל להציע כבר מהתו הראשון
+        tvItemCity.setThreshold(1);
 
 
         ArrayAdapter<String> typeAdapter = new ArrayAdapter<>(

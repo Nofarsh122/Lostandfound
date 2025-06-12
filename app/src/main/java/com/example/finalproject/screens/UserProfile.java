@@ -110,6 +110,8 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
             startActivity(new Intent(this, AboutUs.class));
             return true;
         } else if (id == R.id.menuIte) {
+            AuthenticationService.getInstance().signOut();
+            SharedPreferencesUtil.signOutUser(this);
             startActivity(new Intent(this, MainActivity.class));
             return true;
         }

@@ -14,6 +14,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.finalproject.R;
+import com.example.finalproject.services.AuthenticationService;
+import com.example.finalproject.utils.SharedPreferencesUtil;
 
 public class Landing extends AppCompatActivity implements View.OnClickListener {
 
@@ -53,6 +55,8 @@ public class Landing extends AppCompatActivity implements View.OnClickListener {
             startActivity(new Intent(this, AboutUs.class));
             return true;
         } else if (id == R.id.menuIte) {
+            AuthenticationService.getInstance().signOut();
+            SharedPreferencesUtil.signOutUser(this);
             startActivity(new Intent(this, MainActivity.class));
             return true;
         }

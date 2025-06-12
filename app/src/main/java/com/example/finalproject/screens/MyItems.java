@@ -19,6 +19,7 @@ import com.example.finalproject.adapter.ItemAdapter;
 import com.example.finalproject.model.Item;
 import com.example.finalproject.services.AuthenticationService;
 import com.example.finalproject.services.DatabaseService;
+import com.example.finalproject.utils.SharedPreferencesUtil;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -74,6 +75,8 @@ public class MyItems extends AppCompatActivity {
             startActivity(new Intent(this, AboutUs.class));
             return true;
         } else if (id == R.id.menuIte) {
+            AuthenticationService.getInstance().signOut();
+            SharedPreferencesUtil.signOutUser(this);
             startActivity(new Intent(this, MainActivity.class));
             return true;
         }

@@ -124,15 +124,13 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
                         itemClick.updateDB(position, item);
                     })
                     .setNegativeButton("לא", (dialog, which) -> {
+                        holder.itemRG.check(R.id.rb_item_item_notfound);
                     })
                     .show();
             } else if (checkedId == R.id.rb_item_item_notfound) {
                 item.setStatus("Not Found");
-                itemClick.updateDB(position, item);
             }
         });
-
-
     }
 
     /// get the number of items in the list
