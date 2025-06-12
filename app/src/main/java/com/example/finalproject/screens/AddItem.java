@@ -272,6 +272,7 @@ public class AddItem extends AppCompatActivity implements View.OnClickListener {
     private static final String[] ITEM_TYPES = {
             "אופניים",
             "בגדים",
+            "נעליים",
             "תיק",
             "משקפיים",
             "מצלמה",

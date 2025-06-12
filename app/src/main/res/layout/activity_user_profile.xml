@@ -17,8 +17,7 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:backgroundTint="#264660"
-
+            android:backgroundTint="#6D4C41"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
@@ -119,7 +118,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="45dp"
-            android:backgroundTint="#264660"
+            android:backgroundTint="#6D4C41"
             android:gravity="center"
             android:text="עדכן פרופיל"
             android:textSize="20dp" />
@@ -130,7 +129,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="4dp"
-            android:backgroundTint="#264660"
+            android:backgroundTint="#6D4C41"
             android:gravity="center"
             android:text="מחק פרופיל"
             android:textSize="20dp" />

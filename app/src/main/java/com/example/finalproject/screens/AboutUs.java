@@ -36,9 +36,8 @@ public class AboutUs extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
-        if (id == R.id.menuMain) {
-            startActivity(new Intent(this, MainActivity.class));
+        if (id == R.id.menuUserPage) {
+            startActivity(new Intent(this, UserPage.class));
             return true;
         } else if (id == R.id.menuAddItem) {
             startActivity(new Intent(this, AddItem.class));

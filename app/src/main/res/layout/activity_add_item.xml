@@ -16,8 +16,7 @@
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
-            android:backgroundTint="#264660"
-
+            android:backgroundTint="#5D4037"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
@@ -167,7 +166,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="15dp"
             android:layout_weight="1"
-            android:backgroundTint="#264660"
+            android:backgroundTint="#5D4037"
             android:gravity="center"
             android:text="העלאת הפריט האבוד"
             android:textAlignment="center"

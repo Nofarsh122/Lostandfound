@@ -16,7 +16,7 @@
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
-            android:backgroundTint="#264660"
+            android:backgroundTint="#6D4C41"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="80dp"
-            android:backgroundTint="@color/secondary_variant"
+            android:backgroundTint="@color/black"
             android:text="מעבר לדף מנהל"
             android:textColor="#fff"
             android:textSize="18sp" />
@@ -53,7 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="200dp"
-            android:backgroundTint="@color/secondary_variant"
+            android:backgroundTint="@color/black"
             android:text="פרסום פריט שמצאתי"
             android:textColor="#fff"
             android:textSize="18sp" />
@@ -64,7 +64,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:backgroundTint="@color/secondary_variant"
+            android:backgroundTint="@color/black"
             android:text="חיפוש אבידה"
             android:textColor="#fff"
             android:textSize="18sp" />
@@ -75,7 +75,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:backgroundTint="@color/secondary_variant"
+            android:backgroundTint="@color/black"
             android:text="אזור אישי"
             android:textColor="#fff"
             android:textSize="18sp" />
@@ -86,7 +86,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:backgroundTint="#D32F2F"
+            android:backgroundTint="#B71C1C"
             android:text="התנתקות"
             android:textColor="#fff"
             android:textSize="18sp" />

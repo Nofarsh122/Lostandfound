@@ -16,7 +16,7 @@
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
-            android:backgroundTint="#264660"
+            android:backgroundTint="#6D4C41"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
@@ -78,7 +78,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="200dp"
-            android:backgroundTint="#264660"
+            android:backgroundTint="#6D4C41"
             android:gravity="center"
             android:text="התחבר"
             android:textSize="20dp" />

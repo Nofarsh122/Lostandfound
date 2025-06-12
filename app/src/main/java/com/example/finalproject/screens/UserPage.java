@@ -79,8 +79,8 @@ public class UserPage extends AppCompatActivity implements View.OnClickListener 
             startActivity(go);
             return true;
         }
-        if (id == R.id.menuMain) {
-            Intent go = new Intent(this, MainActivity.class);
+        if (id == R.id.menuUserPage) {
+            Intent go = new Intent(this, UserPage.class);
             startActivity(go);
             return true;
         }

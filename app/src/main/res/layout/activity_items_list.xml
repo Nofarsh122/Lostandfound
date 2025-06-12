@@ -25,8 +25,7 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            android:backgroundTint="#264660"
-
+            android:backgroundTint="#6D4C41"
             app:title="Lost and Found App"
             app:titleTextAppearance="@style/TextAppearance.AppCompat.Large" />
 
