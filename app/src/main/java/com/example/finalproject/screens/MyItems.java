@@ -88,7 +88,8 @@ public class MyItems extends AppCompatActivity {
             @Override
             public void onCompleted(List<Item> items) {
                 items.removeIf(item -> !item.getUserId().equals(currentUserId));
-                itemAdapter.setItems(items);
+                runOnUiThread(() -> itemAdapter.setItems(items));
+
             }
 
             @Override

@@ -128,7 +128,8 @@ public class ShowItems extends AppCompatActivity {
         databaseService.getItems(new DatabaseService.DatabaseCallback<List<Item>>() {
             @Override
             public void onCompleted(List<Item> items) {
-                itemAdapter.setItems(items);
+                runOnUiThread(() -> itemAdapter.setItems(items));
+
             }
 
             @Override
@@ -155,26 +156,7 @@ public class ShowItems extends AppCompatActivity {
             }
         });
 
-        itemAdapter = new ItemAdapter(this, (position, item) -> {
-            if (item == null) {
-                // מחיקת פריט
-                Item itemToDelete = itemAdapter.getItemAt(position);
-                databaseService.deleteItem(itemToDelete.getId(), new DatabaseService.DatabaseCallback<Void>() {
-                    @Override
-                    public void onCompleted(Void result) {
-                        Toast.makeText(ShowItems.this, "הפריט נמחק בהצלחה", Toast.LENGTH_SHORT).show();
-                        itemAdapter.removeItemAt(position);
-                    }
 
-                    @Override
-                    public void onFailed(Exception e) {
-                        Toast.makeText(ShowItems.this, "שגיאה במחיקת הפריט", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            } else {
-                databaseService.createNewItem(item, null);
-            }
-        });
 
 
     }

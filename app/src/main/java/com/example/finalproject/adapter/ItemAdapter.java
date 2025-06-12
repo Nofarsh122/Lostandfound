@@ -2,6 +2,7 @@ package com.example.finalproject.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,18 +29,11 @@ import java.util.Objects;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
-    private static class ItemCount {
-        Item item;
-        int quantity;
-    }
-
-
     public interface ItemClick {
         public void updateDB(int position, Item item);
     }
 
-
-    private final List<ItemCount> ItemCountList, filterItemCountList;
+    private final List<Item> ItemCountList, filterItemCountList;
 
     Context context;
     ItemClick itemClick;
@@ -54,10 +48,9 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     public void setItems(@NonNull List<Item> items) {
         this.ItemCountList.clear();
         this.filterItemCountList.clear();
-        for (Item item : items) {
-            addItem(item);
-        }
+        this.ItemCountList.addAll(items);
         filterItemCountList.addAll(this.ItemCountList);
+        Log.d("!!!!!!!!!!!!!!!!!!", "filterItemCountList: " + filterItemCountList.size());
         this.notifyDataSetChanged();
     }
 
@@ -65,30 +58,10 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         filterItemCountList.clear();
         filterItemCountList.addAll(this.ItemCountList);
         if (!text.isEmpty())
-            filterItemCountList.removeIf(itemCount -> !itemCount.item.getDesc().contains(text));
+            filterItemCountList.removeIf(itemCount -> !itemCount.getDesc().contains(text));
         this.notifyDataSetChanged();
     }
 
-    private void addItem(@Nullable Item f) {
-        if (f == null) return;
-        for (int i = 0; i < ItemCountList.size(); i++) {
-            ItemCount itemCount = ItemCountList.get(i);
-            if (itemCount.item.getId().equals(f.getId())) {
-                itemCount.quantity++;
-                notifyItemChanged(i);
-                return;
-            }
-        }
-        ItemCount itemCount = new ItemCount() {{
-            this.item = new Item(f);
-            this.quantity = 1;
-        }};
-        ItemCountList.add(itemCount);
-        /// notify the adapter that the data has changed
-        /// this specifies that the item at selectedFoods.size() - 1 has been inserted
-        /// and the adapter should update the view
-        /// @see FoodsAdapter#notifyItemInserted(int)
-    }
 
 
     /// create a view holder for the adapter
@@ -111,8 +84,9 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     /// @see ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Item item = filterItemCountList.get(position).item;
-        if (item == null) return;
+        Item item = filterItemCountList.get(position);
+        assert item != null;
+        Log.d("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", item.toString());
 
         holder.itemTypeTextView.setText("סוג הפריט:" + item.getType());
         holder.itemDateTextView.setText("תאריך בו נמצאה האבדה :" + item.getDate());
@@ -136,7 +110,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         holder.itemRG.setClickable(AuthenticationService.getInstance().getCurrentUserId().equals(item.getUserId()));
         holder.itemView.findViewById(R.id.rb_item_item_found).setClickable(AuthenticationService.getInstance().getCurrentUserId().equals(item.getUserId()));
         holder.itemView.findViewById(R.id.rb_item_item_notfound).setClickable(AuthenticationService.getInstance().getCurrentUserId().equals(item.getUserId()));
-        holder.itemRG.setOnCheckedChangeListener(null); // כדי למנוע קריאה חוזרת מיותרת
 
         holder.itemRG.setOnCheckedChangeListener((group, checkedId) -> {
             if (!AuthenticationService.getInstance().getCurrentUserId().equals(item.getUserId()))
@@ -166,16 +139,18 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     /// @return the number of items in the list
     @Override
     public int getItemCount() {
-        return filterItemCountList.size();
+        int size = filterItemCountList.size();
+        Log.d("ItemAdapter", "getItemCount: " + size);
+        return size;
     }
 
 
     public void sortNewToOld() {
-        this.filterItemCountList.sort(new Comparator<ItemCount>() {
+        this.filterItemCountList.sort(new Comparator<Item>() {
             @Override
-            public int compare(ItemCount o1, ItemCount o2) {
-                Date date1 = parseDateSafely(o1.item.getDate());
-                Date date2 = parseDateSafely(o2.item.getDate());
+            public int compare(Item o1, Item o2) {
+                Date date1 = parseDateSafely(o1.getDate());
+                Date date2 = parseDateSafely(o2.getDate());
 
                 if (date1 == null && date2 == null) return 0;
                 if (date1 == null) return 1;
@@ -203,11 +178,11 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     }
 
     public void sortOldToNew() {
-        this.filterItemCountList.sort(new Comparator<ItemCount>() {
+        this.filterItemCountList.sort(new Comparator<Item>() {
             @Override
-            public int compare(ItemCount o1, ItemCount o2) {
-                Date date1 = parseDateSafely(o1.item.getDate());
-                Date date2 = parseDateSafely(o2.item.getDate());
+            public int compare(Item o1, Item o2) {
+                Date date1 = parseDateSafely(o1.getDate());
+                Date date2 = parseDateSafely(o2.getDate());
 
                 if (date1 == null && date2 == null) return 0;
                 if (date1 == null) return 1;
@@ -222,10 +197,10 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
 
     public void sortByType() {
-        this.filterItemCountList.sort(new Comparator<ItemCount>() {
+        this.filterItemCountList.sort(new Comparator<Item>() {
             @Override
-            public int compare(ItemCount o1, ItemCount o2) {
-                return o1.item.getType().compareTo(o2.item.getType());
+            public int compare(Item o1, Item o2) {
+                return o1.getType().compareTo(o2.getType());
             }
         });
         this.notifyDataSetChanged();
@@ -253,7 +228,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         }
     }
     public Item getItemAt(int position) {
-        return filterItemCountList.get(position).item;
+        return filterItemCountList.get(position);
     }
 
     public void removeItemAt(int position) {
